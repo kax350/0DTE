@@ -1,0 +1,97 @@
+date,kind,source_text
+2017-02-01,scheduled,Jan/Feb 31-1 Meeting - 2017
+2017-03-15,scheduled,March 14-15 Meeting - 2017
+2017-05-03,scheduled,May 2-3 Meeting - 2017
+2017-06-14,scheduled,June 13-14 Meeting - 2017
+2017-07-26,scheduled,July 25-26 Meeting - 2017
+2017-09-20,scheduled,September 19-20 Meeting - 2017
+2017-11-01,scheduled,Oct/Nov 31-1 Meeting - 2017
+2017-12-13,scheduled,December 12-13 Meeting - 2017
+2018-01-31,scheduled,January 30-31 Meeting - 2018
+2018-03-21,scheduled,March 20-21 Meeting - 2018
+2018-05-02,scheduled,May 1-2 Meeting - 2018
+2018-06-13,scheduled,June 12-13 Meeting - 2018
+2018-08-01,scheduled,Jul/Aug 31-1 Meeting - 2018
+2018-09-26,scheduled,September 25-26 Meeting - 2018
+2018-11-08,scheduled,November 7-8 Meeting - 2018
+2018-12-19,scheduled,December 18-19 Meeting - 2018
+2019-01-30,scheduled,January 29-30 Meeting - 2019
+2019-03-20,scheduled,March 19-20 Meeting - 2019
+2019-05-01,scheduled,April/May 30-1 Meeting - 2019
+2019-06-19,scheduled,June 18-19 Meeting - 2019
+2019-07-31,scheduled,July 30-31 Meeting - 2019
+2019-09-18,scheduled,September 17-18 Meeting - 2019
+2019-10-04,unscheduled,October 4 (unscheduled) - 2019
+2019-10-30,scheduled,October 29-30 Meeting - 2019
+2019-12-11,scheduled,December 10-11 Meeting - 2019
+2020-01-29,scheduled,January 28-29 Meeting - 2020
+2020-03-02,unscheduled,March 2 (unscheduled) Meeting - 2020
+2020-03-15,unscheduled,March 15 (unscheduled) Meeting - 2020
+2020-03-18,cancelled,March 17-18 (cancelled) Meeting - 2020
+2020-03-19,unscheduled,March 19 (notation vote) - 2020
+2020-03-23,unscheduled,March 23 (notation vote) - 2020
+2020-03-31,unscheduled,March 31 (notation vote) - 2020
+2020-04-29,scheduled,April 28-29 Meeting - 2020
+2020-06-10,scheduled,June 9-10 Meeting - 2020
+2020-07-29,scheduled,July 28-29 Meeting - 2020
+2020-08-27,unscheduled,August 27 (notation vote) - 2020
+2020-09-16,scheduled,September 15-16 Meeting - 2020
+2020-11-05,scheduled,November 4-5 Meeting - 2020
+2020-12-16,scheduled,December 15-16 Meeting - 2020
+2021-01-27,scheduled,January 26-27
+2021-03-17,scheduled,March 16-17*
+2021-04-28,scheduled,April 27-28
+2021-06-16,scheduled,June 15-16*
+2021-07-28,scheduled,July 27-28
+2021-09-22,scheduled,September 21-22*
+2021-11-03,scheduled,November 2-3
+2021-12-15,scheduled,December 14-15*
+2022-01-26,scheduled,January 25-26
+2022-03-16,scheduled,March 15-16*
+2022-05-04,scheduled,May 3-4
+2022-06-15,scheduled,June 14-15*
+2022-07-27,scheduled,July 26-27
+2022-09-21,scheduled,September 20-21*
+2022-11-02,scheduled,November 1-2
+2022-12-14,scheduled,December 13-14*
+2023-02-01,scheduled,Jan/Feb 31-1
+2023-03-22,scheduled,March 21-22*
+2023-05-03,scheduled,May 2-3
+2023-06-14,scheduled,June 13-14*
+2023-07-26,scheduled,July 25-26
+2023-09-20,scheduled,September 19-20*
+2023-11-01,scheduled,Oct/Nov 31-1
+2023-12-13,scheduled,December 12-13*
+2024-01-31,scheduled,January 30-31
+2024-03-20,scheduled,March 19-20*
+2024-05-01,scheduled,Apr/May 30-1
+2024-06-12,scheduled,June 11-12*
+2024-07-31,scheduled,July 30-31
+2024-09-18,scheduled,September 17-18*
+2024-11-07,scheduled,November 6-7
+2024-12-18,scheduled,December 17-18*
+2025-01-29,scheduled,January 28-29
+2025-03-19,scheduled,March 18-19*
+2025-05-07,scheduled,May 6-7
+2025-06-18,scheduled,June 17-18*
+2025-07-30,scheduled,July 29-30
+2025-08-22,unscheduled,August 22 (notation vote)
+2025-09-17,scheduled,September 16-17*
+2025-10-29,scheduled,October 28-29
+2025-12-10,scheduled,December 9-10*
+2026-01-28,scheduled,January 27-28
+2026-03-18,scheduled,March 17-18*
+2026-04-29,scheduled,April 28-29
+2026-06-17,scheduled,June 16-17*
+2026-07-29,scheduled,July 28-29
+2026-09-16,scheduled,September 15-16*
+2026-10-28,scheduled,October 27-28
+2026-12-09,scheduled,December 8-9*
+2027-01-27,scheduled,January 26-27
+2027-03-17,scheduled,March 16-17*
+2027-04-28,scheduled,April 27-28
+2027-06-09,scheduled,June 8-9*
+2027-07-28,scheduled,July 27-28
+2027-09-15,scheduled,September 14-15*
+2027-10-27,scheduled,October 26-27
+2027-12-08,scheduled,December 7-8*

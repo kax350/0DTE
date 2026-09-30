@@ -1,0 +1,8 @@
+data/raw/
+*.key
+.databento_key
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+paper/
