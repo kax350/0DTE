@@ -22,6 +22,8 @@ Times America/New_York. Each entry: what changed, why, and whether any out-of-sa
 | 15 | 17:05 | Clarifications fixed before any outcome data is used (not changes to PREREG): (a) surface DTE target picks the expiry with the nearest calendar DTE, ties → shorter (so on M/W/F the "1-DTE" point equals 0-DTE); (b) CPI/NFP release dates unavailable (BLS 403) → 4 calendar features not built unless a FRED key is supplied; SPX/VIX put-call ratios not built (8 features); (c) morning RV uses the paper's literal Σ formula. | no |
 | 16 | 17:10 | Bulk download launched: SPXW 2017-01 → 2026-09; XSP and SPY 2021-01 → 2026-09. | no |
 | 17 | 17:45 | **Data-licensing incident.** Commits c16d362 and 27a2c0a pushed 284 processed quote files derived from Databento OPRA data, and b76635a pushed a small Cboe delayed-quote table, to a **public** repository. Fix going forward: the files are untracked and git-ignored (they stay on local disk). Rewriting history to purge them was blocked by the permission system and is left to the user. | no |
+| 18 | 19:20 | Container restart mid-download. Data, key and code survived; background processes were relaunched with per-day locks, patient 429 retries and split-on-504 retries. | no |
+| 19 | 19:35 | Code smoke test of `run_window` on a DEV window (train 2017–2018, predict 2019), 5 Optuna trials. **All three years are training-period data for every real window.** Outputs: SKIP-in-grade-1 holds (θ10 = −0.28 < 0 ≤ θ40); S1..S5 = 171/170/107/42/28; gate rate 0.4; early stopping at round 4. Written to scratch only; not a result and not used for any decision. | no |
 
 ## Spend log (Databento, USD)
 
