@@ -137,13 +137,30 @@ def quotes(c, root: str, day: dt.date, syms: list[str], t0: str, t1: str, kind: 
     if not syms:
         return pd.DataFrame()
     frames = []
+
+    def get(chunk, a, b, depth=0):
+        try:
+            return [priced_get(c, kind, root, str(day), f"{a}-{b} n={len(chunk)}",
+                               symbols=chunk, stype_in="raw_symbol", schema="cbbo-1m",
+                               start=_et(day, a).tz_convert("UTC"), end=_et(day, b).tz_convert("UTC"))]
+        except Exception as e:  # noqa: BLE001
+            msg = str(e)
+            if depth >= 3 or not ("504" in msg or "timed out" in msg.lower() or "prematurely" in msg):
+                raise
+            # gateway timeout on a heavy request: split symbols in half and the window in half
+            ta, tb = _et(day, a), _et(day, b)
+            mid = (ta + (tb - ta) / 2).floor("min").strftime("%H:%M")
+            halves = [chunk[: len(chunk) // 2], chunk[len(chunk) // 2:]] if len(chunk) > 1 else [chunk]
+            out = []
+            for h in halves:
+                for x, y in ((a, mid), (mid, b)) if mid not in (a, b) else ((a, b),):
+                    out += get(h, x, y, depth + 1)
+            return out
+
     for i in range(0, len(syms), 2000):  # API symbol-list limit
-        chunk = syms[i:i + 2000]
-        df = priced_get(c, kind, root, str(day), f"{t0}-{t1} n={len(chunk)}",
-                        symbols=chunk, stype_in="raw_symbol", schema="cbbo-1m",
-                        start=_et(day, t0).tz_convert("UTC"), end=_et(day, t1).tz_convert("UTC"))
-        if not df.empty:
-            frames.append(df)
+        for df in get(syms[i:i + 2000], t0, t1):
+            if not df.empty:
+                frames.append(df)
     if not frames:
         return pd.DataFrame()
     df = pd.concat(frames)
