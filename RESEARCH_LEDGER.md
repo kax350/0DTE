@@ -17,12 +17,18 @@ Times America/New_York. Each entry: what changed, why, and whether any out-of-sa
 | 10 | 16:45 | User supplied a Databento key (stored outside the repo, never committed). OPRA.PILLAR `cbbo-1m` covers 2013-04 →, so the DATA GAP is closed. Test spend: one definition file 2024-06-03 SPXW (≈$0.03). It contains contract definitions only; no quotes were retrieved. | no |
 | 11 | 16:50 | Cost sized by `metadata.get_cost` (free). User approved a **$300 cap** for Databento. | no |
 | 12 | 16:55 | PREREGISTRATION.md frozen (this commit). Primary $25k candidate named in advance: X-CAP2, NAT, 10:03, 1 lot. | no |
+| 13 | 17:00 | Databento downloader built (budget-capped, retries). Bugs found and fixed during the pilot: calendar end-date bound; a many-to-many merge that blew memory (OOM kill); tz loss. Per-request `get_cost` replaced by a row-count cost estimate (+10% margin, calibrated against get_cost). | no |
+| 14 | 17:05 | Pilot SPXW 2019-06 (training period) downloaded and validated: parity spot vs SPX 1-min median 0.72 bp (p95 2.18 bp); 0 crossed quotes; 0DTE M/W/F pattern correct; 5Δ available 20/20 days. `docs/validation_SPXW_2019-06-01_2019-06-30.csv`. Pipeline smoke-tested on 2019-06-03/04 (training data). | no |
+| 15 | 17:05 | Clarifications fixed before any outcome data is used (not changes to PREREG): (a) surface DTE target picks the expiry with the nearest calendar DTE, ties → shorter (so on M/W/F the "1-DTE" point equals 0-DTE); (b) CPI/NFP release dates unavailable (BLS 403) → 4 calendar features not built unless a FRED key is supplied; SPX/VIX put-call ratios not built (8 features); (c) morning RV uses the paper's literal Σ formula. | no |
+| 16 | 17:10 | Bulk download launched: SPXW 2017-01 → 2026-09; XSP and SPY 2021-01 → 2026-09. | no |
 
 ## Spend log (Databento, USD)
 
 | Date | Request | Cost | Cumulative |
 |---|---|---|---|
 | 2026-09-30 | definition SPXW.OPT 2024-06-03 | 0.03 | 0.03 |
+| 2026-09-30 | pilot SPXW 2019-06 (incl. restarts) | 1.52 | 1.55 |
+| running | see `data/reference/databento_spend.csv` (every request) | | |
 
 ## Trial counter
 Maintained automatically by `vrp_ltr/registry.py` (every variant that produces a P&L series is counted, including failed/abandoned ones).

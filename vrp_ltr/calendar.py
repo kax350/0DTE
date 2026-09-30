@@ -19,8 +19,11 @@ def _cal():
 
 
 @lru_cache(maxsize=None)
-def sessions(start: str = "2016-01-01", end: str = "2027-12-31") -> pd.DatetimeIndex:
-    return _cal().sessions_in_range(start, end)
+def sessions(start: str = "2016-01-01", end: str | None = None) -> pd.DatetimeIndex:
+    c = _cal()
+    last = c.last_session
+    end_ts = last if end is None else min(pd.Timestamp(end), last)
+    return c.sessions_in_range(start, end_ts)
 
 
 def session_bounds(day: dt.date) -> tuple[pd.Timestamp, pd.Timestamp]:

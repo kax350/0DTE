@@ -1,0 +1,40 @@
+{"day": "2019-06-04", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-07", "root": "SPXW", "status": "error: 504 The remote gateway timed out."}
+{"day": "2019-06-06", "root": "SPXW", "status": "error: HTTPSConnectionPool(host='hist.databento.com', port=443): Max retries exceeded with url: /v0/metadata.get_billable_size (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))"}
+{"day": "2019-06-10", "root": "SPXW", "status": "error: Error streaming response: Response ended prematurely"}
+{"day": "2019-06-03", "root": "SPXW", "status": "error: Error streaming response: Response ended prematurely"}
+{"day": "2019-06-05", "root": "SPXW", "status": "error: Error streaming response: Response ended prematurely"}
+{"day": "2019-06-11", "root": "SPXW", "status": "error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"}
+{"day": "2019-06-12", "root": "SPXW", "status": "error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"}
+{"day": "2019-06-13", "root": "SPXW", "status": "error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"}
+{"day": "2019-06-14", "root": "SPXW", "status": "error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"}
+{"day": "2019-06-18", "root": "SPXW", "status": "error: 504 The remote gateway timed out."}
+{"day": "2019-06-04", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-10", "root": "SPXW", "status": "ok", "expiry": "2019-06-10", "n_chain_rows": 75952, "n_surface_rows": 35940}
+{"day": "2019-06-03", "root": "SPXW", "status": "ok", "expiry": "2019-06-03", "n_chain_rows": 77568, "n_surface_rows": 34282}
+{"day": "2019-06-06", "root": "SPXW", "status": "ok", "expiry": "2019-06-07", "n_chain_rows": 208464, "n_surface_rows": 34918}
+{"day": "2019-06-05", "root": "SPXW", "status": "ok", "expiry": "2019-06-05", "n_chain_rows": 77972, "n_surface_rows": 35032}
+{"day": "2019-06-11", "root": "SPXW", "status": "ok", "expiry": "2019-06-12", "n_chain_rows": 155136, "n_surface_rows": 36468}
+{"day": "2019-06-07", "root": "SPXW", "status": "ok", "expiry": "2019-06-07", "n_chain_rows": 104232, "n_surface_rows": 35808}
+{"day": "2019-06-12", "root": "SPXW", "status": "ok", "expiry": "2019-06-12", "n_chain_rows": 77972, "n_surface_rows": 35842}
+{"day": "2019-06-17", "root": "SPXW", "status": "ok", "expiry": "2019-06-17", "n_chain_rows": 77568, "n_surface_rows": 37308}
+{"day": "2019-06-06", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-03", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-04", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-17", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-12", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-05", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-10", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-11", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-07", "root": "SPXW", "status": "cached"}
+{"day": "2019-06-20", "root": "SPXW", "status": "ok", "expiry": "2019-06-21", "n_chain_rows": 256136, "n_surface_rows": 31533}
+{"day": "2019-06-19", "root": "SPXW", "status": "ok", "expiry": "2019-06-19", "n_chain_rows": 80800, "n_surface_rows": 30016}
+{"day": "2019-06-13", "root": "SPXW", "status": "ok", "expiry": "2019-06-14", "n_chain_rows": 207656, "n_surface_rows": 31620}
+{"day": "2019-06-21", "root": "SPXW", "status": "ok", "expiry": "2019-06-21", "n_chain_rows": 127664, "n_surface_rows": 31401}
+{"day": "2019-06-24", "root": "SPXW", "status": "ok", "expiry": "2019-06-24", "n_chain_rows": 83224, "n_surface_rows": 31473}
+{"day": "2019-06-18", "root": "SPXW", "status": "ok", "expiry": "2019-06-19", "n_chain_rows": 155944, "n_surface_rows": 31533}
+{"day": "2019-06-26", "root": "SPXW", "status": "ok", "expiry": "2019-06-26", "n_chain_rows": 79184, "n_surface_rows": 30046}
+{"day": "2019-06-14", "root": "SPXW", "status": "ok", "expiry": "2019-06-14", "n_chain_rows": 103828, "n_surface_rows": 31656}
+{"day": "2019-06-25", "root": "SPXW", "status": "ok", "expiry": "2019-06-26", "n_chain_rows": 158368, "n_surface_rows": 29887}
+{"day": "2019-06-28", "root": "SPXW", "status": "ok", "expiry": "2019-06-28", "n_chain_rows": 122816, "n_surface_rows": 29947}
+{"day": "2019-06-27", "root": "SPXW", "status": "ok", "expiry": "2019-06-28", "n_chain_rows": 245632, "n_surface_rows": 31659}
