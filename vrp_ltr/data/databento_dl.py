@@ -64,7 +64,7 @@ def _log(kind: str, root: str, day: str, detail: str, usd: float, mb: float) -> 
                         round(usd, 6), round(mb, 3)])
 
 
-def _retry(fn, tries: int = 15):
+def _retry(fn, tries: int = 45):
     """Retry network resets (egress relay) and HTTP 429 rate limits with capped exponential backoff."""
     import random
     import time
@@ -74,7 +74,14 @@ def _retry(fn, tries: int = 15):
         except Exception as e:  # noqa: BLE001
             msg = str(e)
             fatal = "budget cap" in msg or " 400 " in f" {msg} " or "422" in msg
-            if fatal or k == tries - 1 or (k >= 6 and "429" not in msg):
+            if "429" in msg:
+                # honour the server's "Retry in Ns" hint instead of escalating (escalation starves throughput)
+                m = re.search(r"Retry in (\d+)s", msg)
+                if k >= 40:
+                    raise
+                time.sleep((int(m.group(1)) if m else 5) + random.random() * 3)
+                continue
+            if fatal or k >= 6:
                 raise
             time.sleep(min(2 ** (k + 1), 90) * (1 + random.random() * 0.5))
 
