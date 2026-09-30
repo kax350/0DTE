@@ -26,6 +26,7 @@ def sessions(start: str = "2016-01-01", end: str | None = None) -> pd.DatetimeIn
     return c.sessions_in_range(start, end_ts)
 
 
+@lru_cache(maxsize=None)
 def session_bounds(day: dt.date) -> tuple[pd.Timestamp, pd.Timestamp]:
     """(open, close) in America/New_York for a session date."""
     c = _cal()
@@ -33,6 +34,7 @@ def session_bounds(day: dt.date) -> tuple[pd.Timestamp, pd.Timestamp]:
     return (c.session_open(ts).tz_convert(TZ), c.session_close(ts).tz_convert(TZ))
 
 
+@lru_cache(maxsize=None)
 def is_session(day: dt.date) -> bool:
     return pd.Timestamp(day) in sessions()
 
@@ -56,15 +58,21 @@ def trading_time_years(now: pd.Timestamp, expiry_day: dt.date) -> float:
     """
     now = now.tz_convert(TZ) if now.tzinfo else now.tz_localize(TZ)
     today = now.date()
+    o, c = session_bounds(today) if is_session(today) else (None, None)
+    head = max((c - max(now, o)).total_seconds() / 60.0, 0.0) if c is not None and expiry_day >= today else 0.0
+    return (head + _full_minutes_between(today, expiry_day)) / (MINUTES_PER_SESSION * TRADING_DAYS_PER_YEAR)
+
+
+@lru_cache(maxsize=None)
+def _full_minutes_between(today: dt.date, expiry_day: dt.date) -> float:
+    """Regular-session minutes of sessions strictly after `today` up to and including expiry."""
     total = 0.0
     for d in sessions(str(today), str(expiry_day)):
-        o, c = session_bounds(d.date())
         if d.date() == today:
-            start = max(now, o)
-            total += max((c - start).total_seconds() / 60.0, 0.0)
-        else:
-            total += (c - o).total_seconds() / 60.0
-    return total / (MINUTES_PER_SESSION * TRADING_DAYS_PER_YEAR)
+            continue
+        o, c = session_bounds(d.date())
+        total += (c - o).total_seconds() / 60.0
+    return total
 
 
 @lru_cache(maxsize=1)

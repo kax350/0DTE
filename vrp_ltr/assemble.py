@@ -9,9 +9,10 @@ import numpy as np
 import pandas as pd
 
 from .calendar import sessions
+from .config import PANEL_TAG
 from .config import SKIP
 from .features import (add_interactions_and_ranks, calendar_cs, close_based_cs, daily_sources,
-                       group_of, rolling_ps, PS_ENTRY)
+                       group_of, paper_catalog, rolling_ps, PS_ENTRY)
 
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed" / "SPXW"
@@ -33,7 +34,7 @@ def load_dayfeat(days) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def load_candidates(days) -> pd.DataFrame:
-    fr = [pd.read_parquet(P / "panel" / f"{d}.parquet") for d in days if (P / "panel" / f"{d}.parquet").exists()]
+    fr = [pd.read_parquet(P / f"panel{PANEL_TAG}" / f"{d}.parquet") for d in days if (P / f"panel{PANEL_TAG}" / f"{d}.parquet").exists()]
     c = pd.concat(fr, ignore_index=True)
     for col in ("date", "expiry", "outcome_settle_day"):
         c[col] = pd.to_datetime(c[col]).dt.date
@@ -77,9 +78,9 @@ def build(start: str, end: str, policy: str) -> tuple[pd.DataFrame, list[str]]:
                "label_score", "label_gross", "label_tdd", "label_nbars", "strike", "bid", "ask", "mid", "T", "iv",
                "spot", "r", "target_delta", "dte_sessions", "expiration", "right", "bid_size", "ask_size",
                "cboe_iv", "cboe_delta", "volume", "open_interest", "atmf_iv_entry", "grade"}
+    catalog = set(paper_catalog())
     feats = [f for f in panel.columns
-             if f not in exclude and not f.startswith(("net_", "bid_", "ask_")) and
-             pd.api.types.is_numeric_dtype(panel[f])]
+             if f in catalog and f not in exclude and pd.api.types.is_numeric_dtype(panel[f])]
     panel = panel.sort_values(["date", "strategy"]).reset_index(drop=True)
     return panel, sorted(feats)
 

@@ -34,8 +34,11 @@ def gate_pnl(panel, picks):
                      index=picks.index)
 
 
-def run_window(panel, feats_all, name, policy, n_trials, outdir):
+def run_window(panel, feats_all, name, policy, n_trials, outdir, opts=None):
+    opts = opts or {}
     y0, y1, ytest = WINDOWS[name]
+    if opts.get("rolling3y"):
+        y0 = y1 - 2
     days = sorted(d for d in panel["date"].unique() if y0 <= d.year <= y1)
     sl = split_window(days, y1)
     ranker = panel[panel["date"].isin(set(sl["ranker"]))]
@@ -43,7 +46,7 @@ def run_window(panel, feats_all, name, policy, n_trials, outdir):
     p = panel.copy()
     p["grade"] = grade(p["label_score"].values, thr)
     feats, info = select_features(p[p["date"].isin(set(sl["ranker"]))], feats_all)
-    seed = 20260825 + list(WINDOWS).index(name)
+    seed = 20260825 + list(WINDOWS).index(name) + int(opts.get("seed_offset", 0))
     model, tinfo = tune_and_fit(p, feats, sl, seed, n_trials)
     # gate on the held-out 6 months
     pg = p[p["date"].isin(set(sl["gate"]))]
@@ -56,6 +59,12 @@ def run_window(panel, feats_all, name, policy, n_trials, outdir):
         sc = predict(model, pt, feats)
         out["head"] = top_picks(pt, sc)
         out["forced"] = top_picks(pt, sc, forced=True)
+    if name == "OOT":  # TEST A: the frozen OOT model applied unchanged to 2026 (no retraining)
+        p26 = p[p["date"].map(lambda d: d.year == 2026)]
+        if len(p26):
+            sc26 = predict(model, p26, feats)
+            out["ext_a"] = top_picks(p26, sc26)
+            out["ext_a_forced"] = top_picks(p26, sc26, forced=True)
     # in-sample picks on training days (for sizing calibration only)
     ptr = p[p["date"].isin(set(days))]
     out["train"] = top_picks(ptr, predict(model, ptr, feats))
@@ -71,7 +80,7 @@ def run_window(panel, feats_all, name, policy, n_trials, outdir):
         v.to_parquet(wdir / f"picks_{k}.parquet")
     h = hashlib.sha256((wdir / "model.txt").read_bytes()).hexdigest()
     (ROOT / "models").mkdir(exist_ok=True)
-    (ROOT / "models" / f"{policy}_{name}.sha256").write_text(h + "\n")
+    (ROOT / "models" / f"{outdir.name}_{name}.sha256").write_text(h + "\n")
     return meta, out
 
 
@@ -80,15 +89,24 @@ def main():
     ap.add_argument("--policy", default="P-LAG")
     ap.add_argument("--windows", default="WF1,WF2,WF3,WF4,OOT")
     ap.add_argument("--trials", type=int, default=50)
-    ap.add_argument("--end", default="2025-12-31")
+    ap.add_argument("--end", default="2026-12-31")
+    ap.add_argument("--tag", default="")
+    ap.add_argument("--seed-offset", type=int, default=0)
+    ap.add_argument("--corr", type=float, default=None)
+    ap.add_argument("--rolling3y", action="store_true")
     a = ap.parse_args()
-    outdir = ROOT / "results" / a.policy
+    from vrp_ltr.config import PANEL_TAG
+    outdir = ROOT / "results" / (a.policy + PANEL_TAG + a.tag)
     outdir.mkdir(parents=True, exist_ok=True)
+    if a.corr is not None:
+        import vrp_ltr.selection as S
+        S.CORR_CLUSTER = a.corr
+    opts = {"seed_offset": a.seed_offset, "rolling3y": a.rolling3y}
     panel, feats = build("2017-01-01", a.end, a.policy)
     feature_coverage(panel, feats).to_csv(outdir / "feature_coverage.csv", index=False)
     print("panel", panel.shape, "features", len(feats), flush=True)
     for w in a.windows.split(","):
-        meta, _ = run_window(panel, feats, w, a.policy, a.trials, outdir)
+        meta, _ = run_window(panel, feats, w, a.policy, a.trials, outdir, opts)
         print(w, json.dumps({k: meta[k] for k in ("thresholds", "skip_in_grade1", "selection", "gate")}, default=str)[:600],
               flush=True)
 

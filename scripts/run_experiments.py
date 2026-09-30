@@ -30,10 +30,22 @@ SLICES = {"WF_2021_2024": (2021, 2024), "Y2021": (2021, 2021), "Y2022": (2022, 2
           "Y2024": (2024, 2024), "OOT_2025": (2025, 2025), "EXT_2026": (2026, 2026)}
 
 
-def load_picks(policy: str, gate_variant: str) -> dict[str, pd.Series]:
+def load_picks(policy: str, gate_variant: str, ext: str = "A") -> dict[str, pd.Series]:
+    """2021-2025 from WF1-4/OOT; 2026 from the frozen OOT model (ext='A') or the EXT_B retrain (ext='B')."""
     base = ROOT / "results" / policy
     head, skipnog, forced, gaps = [], [], [], []
-    for w in ("WF1", "WF2", "WF3", "WF4", "OOT"):
+    for w in ("WF1", "WF2", "WF3", "WF4", "OOT", "EXT"):
+        if w == "EXT":
+            if ext == "A" and (base / "OOT" / "picks_ext_a.parquet").exists():
+                h = pd.read_parquet(base / "OOT" / "picks_ext_a.parquet")
+                f = pd.read_parquet(base / "OOT" / "picks_ext_a_forced.parquet")
+                h["window"], h["tau"] = "EXT_A", np.nan  # τ filled below = OOT's τ (frozen)
+                head.append(h)
+                forced.append(f["pick"])
+                continue
+            w = "EXT_B"
+            if ext != "B":
+                continue
         d = base / w
         if not (d / "picks_head.parquet").exists():
             continue
@@ -46,13 +58,21 @@ def load_picks(policy: str, gate_variant: str) -> dict[str, pd.Series]:
         head.append(h)
         forced.append(f["pick"])
     H = pd.concat(head)
-    if gate_variant == "G-UNION" and (H["window"] == "OOT").any():
-        # tab:gate: OOT threshold calibrated on the union of the WF test-year predictions
-        wf = H[H["window"] != "OOT"]
-        cands = load_candidates(sorted(wf.index))
-        t = cands.set_index(["date", "strategy"])["net_L1"]
-        pnl = pd.Series([0.0 if s == SKIP else float(t.get((d, s), 0.0) or 0.0) for d, s in wf["pick"].items()], index=wf.index)
-        H.loc[H["window"] == "OOT", "tau"] = calibrate(wf["gap"], pnl)["tau"]
+    if gate_variant == "G-UNION":
+        # tab:gate: an out-of-time threshold is calibrated on the union of the preceding test-year
+        # predictions (OOT: WF1-4 test years; EXT_B analogue: WF1-4 + OOT test years)
+        for target, members in (("OOT", ["WF1", "WF2", "WF3", "WF4"]), ("EXT_B", ["WF1", "WF2", "WF3", "WF4", "OOT"])):
+            if not (H["window"] == target).any():
+                continue
+            u = H[H["window"].isin(members)]
+            cands = load_candidates(sorted(u.index))
+            t = cands.set_index(["date", "strategy"])["net_L1"]
+            pnl = pd.Series([0.0 if s == SKIP else float(t.get((d, s), 0.0) or 0.0) for d, s in u["pick"].items()],
+                            index=u.index)
+            H.loc[H["window"] == target, "tau"] = calibrate(u["gap"], pnl)["tau"]
+    oot_tau = H.loc[H["window"] == "OOT", "tau"]
+    if (H["window"] == "EXT_A").any() and len(oot_tau):
+        H.loc[H["window"] == "EXT_A", "tau"] = float(oot_tau.iloc[0])
     gated = H.apply(lambda r: r["pick"] if (r["pick"] != SKIP and r["gap"] >= r["tau"]) else SKIP, axis=1)
     return {"M-HEAD": gated, "M-SKIP": H["pick"], "M-FORCED": pd.concat(forced)}
 
@@ -109,9 +129,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--policy", default="P-LAG")
     ap.add_argument("--gate", default="G-UNION")
+    ap.add_argument("--ext", default="A")
     a = ap.parse_args()
     out = ROOT / "results" / a.policy
-    picks = load_picks(a.policy, a.gate)
+    picks = load_picks(a.policy, a.gate, a.ext)
     days = sorted(picks["M-HEAD"].index)
     cands = load_candidates([d.date() for d in sessions("2018-01-01", "2026-12-31")])
     tb = best_train_bucket(cands)
@@ -122,14 +143,14 @@ def main():
         p = p.reindex(days)
         for lvl in SINGLE_EXEC:
             s = one_contract_series(p, cands, lvl)
-            registry.record(f"SPXW|1lot|{a.policy}|{a.gate}|{name}|{lvl}", "2021-2026")
+            registry.record(f"SPXW|1lot|{a.policy}|{a.gate}|ext{a.ext}|{name}|{lvl}", "2021-2026")
             table[(name, lvl)] = s
     rows = []
     for (name, lvl), s in table.items():
         for sl, st in slice_stats(s).items():
             rows.append({"strategy": name, "level": lvl, "slice": sl, **st})
     R = pd.DataFrame(rows)
-    R.to_csv(out / f"one_contract_{a.gate}.csv", index=False)
+    R.to_csv(out / f"one_contract_{a.gate}_ext{a.ext}.csv", index=False)
     # random baseline distribution (L1, WF and OOT)
     rd = []
     for seed, p in rnd.items():
@@ -149,8 +170,8 @@ def main():
         verdict[lvl] = {"wf_mean_diff": float(wf.mean()), "wf_boot_p_gt0": float((b > 0).mean()),
                         "oot2025_mean_diff": float(o25.mean()) if len(o25) else None,
                         "pass": bool((b > 0).mean() >= 0.95 and len(o25) and o25.mean() > 0)}
-    (out / f"selection_alpha_{a.gate}.json").write_text(json.dumps({"train_best_bucket": tb, "verdict": verdict}, indent=1, default=str))
-    pd.to_pickle({k: v for k, v in table.items()}, out / f"one_contract_series_{a.gate}.pkl")
+    (out / f"selection_alpha_{a.gate}_ext{a.ext}.json").write_text(json.dumps({"train_best_bucket": tb, "verdict": verdict}, indent=1, default=str))
+    pd.to_pickle({k: v for k, v in table.items()}, out / f"one_contract_series_{a.gate}_ext{a.ext}.pkl")
     print(json.dumps(verdict, indent=1))
 
 

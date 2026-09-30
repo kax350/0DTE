@@ -54,6 +54,9 @@ def daily_sources() -> pd.DataFrame:
     c.columns = ["date", "claims"]
     c["date"] = pd.to_datetime(c["date"]).dt.date + dt.timedelta(days=5)  # week ending Sat -> released Thu
     df = df.join(c.set_index("date")["claims"].apply(pd.to_numeric, errors="coerce"), how="left")
+    pcr = pd.read_csv(RAW / "cboe_pcr.csv")
+    pcr["date"] = pd.to_datetime(pcr["date"]).dt.date
+    df = df.join(pcr.set_index("date")[["spx_put_call_ratio", "vix_put_call_ratio"]], how="left")
     return df.sort_index().ffill()
 
 
@@ -101,6 +104,12 @@ def close_based_cs(surface_close: pd.DataFrame) -> pd.DataFrame:
     out["vix_curvature_9d_30d_3m"] = d["VIX9D"] - 2 * d["VIX"] + d["VIX3M"]
     out["vix_curvature_1d_9d_30d"] = d["VIX1D"] - 2 * d["VIX9D"] + d["VIX"]
     out["vix_curvature_1d_30d_3m"] = d["VIX1D"] - 2 * d["VIX"] + d["VIX3M"]
+    for k in ("spx", "vix"):
+        x = d[f"{k}_put_call_ratio"]
+        out[f"{k}_put_call_ratio"] = x
+        out[f"{k}_pcr_21d_avg"] = x.rolling(21).mean()
+        out[f"{k}_pcr_5d_pct_change"] = x / x.shift(5) - 1
+        out[f"{k}_pcr_21d_pct_change"] = x / x.shift(21) - 1
     out["effr_rate"] = d["effr"]
     out["effr_rate_1y_pct_change"] = d["effr"] / d["effr"].shift(252) - 1
     out["effr_rate_1y_percentile"] = _pct_rank(d["effr"])
@@ -315,3 +324,56 @@ def group_of(f: str) -> tuple[str, str]:
     if f.startswith(("VIX", "VVIX", "vix_", "front_roll")):
         return "CS", "vix"
     return "CS", "vol_surface"
+
+
+# ------------------------------------------------------------------ the paper's catalog (App. B)
+def paper_catalog() -> list[str]:
+    """Exact feature names listed in App. B. Only these may reach the model (PAPER_SPEC §4).
+    PCR (8) and CPI/NFP (4) are listed but not buildable (RESEARCH_LEDGER #15)."""
+    cal = ["day_of_week", "day_of_month", "month_of_year", "is_monthly_opex", "is_quarterly_opex",
+           "is_post_holiday_session", "is_pre_holiday_session", "days_until_next_fomc", "days_since_last_fomc",
+           "is_cpi_day", "days_until_next_cpi", "is_nfp_day", "days_until_next_nfp", "is_pce_day", "days_until_next_pce"]
+    morning = ["morning_spx_log_return", "morning_spx_range_pct", "morning_spx_rv_annualized",
+               "morning_spx_directionality", "morning_gap_size", "morning_gap_filled", "morning_atmf_iv_change",
+               "morning_atmf_iv_pct_change", "morning_skew_change", "morning_vix_level", "morning_vix_change",
+               "morning_vvix_change"]
+    spx = [f"spx_{n}_returns" for n in ("1d", "5d", "10d", "1m", "3m", "6m", "1y")] + \
+          ["spx_returns_roll_avg_30d", "spx_returns_roll_std_30d"] + [f"spx_{n}d_rv" for n in (5, 21, 63, 252)] + \
+          ["spx_1y_percentile", "spx_position_52w", "spx_put_call_ratio", "spx_pcr_21d_avg", "spx_pcr_5d_pct_change",
+           "spx_pcr_21d_pct_change", "vix_put_call_ratio", "vix_pcr_21d_avg", "vix_pcr_5d_pct_change",
+           "vix_pcr_21d_pct_change"]
+    vix = ["VIX", "VIX1D", "VIX9D", "VIX3M", "VIX6M", "VVIX"] + \
+          [f"VIX_{s}_{k}" for s in ("VIX1D", "VIX9D", "VIX3M", "VIX6M") for k in ("ratio", "spread")] + \
+          [f"{s}_{n}_pct_change" for s in ("VIX", "VIX1D", "VVIX") for n in ("5d", "21d")] + \
+          [f"{s}_1y_percentile" for s in ("VIX", "VIX1D", "VVIX")] + \
+          ["vix_futures_front_price", "vix_front_slope", "vix_front_curvature", "front_roll_yield", "vix_z_60d"]
+    macro = ["effr_rate", "effr_rate_1y_pct_change", "effr_rate_1y_percentile", "jobless_claims",
+             "jobless_claims_1y_pct_change", "jobless_claims_1y_percentile"]
+    surf = [f"atmf_iv_{t}dte_close" for t in (1, 5, 20, 30, 60, 90)] + ["atmf_iv_1dte_1000", "atmf_iv_5dte_1000"] + \
+           [f"{r}_25d_iv_{t}dte_close" for r in ("call", "put") for t in (5, 30)] + \
+           [f"atmf_iv_{t}dte_percentile_252d" for t in (1, 5, 30)] + \
+           [f"risk_reversal_delta25_{t}dte_close" for t in (1, 5, 10, 20, 30)] + \
+           [f"risk_reversal_delta10_{t}dte_close" for t in (0, 1, 5, 10, 20, 30)] + \
+           [f"{s}_skew_delta25_{t}dte_close" for s in ("put", "call") for t in (1, 5, 20, 30)] + \
+           [f"atmf_forward_vol_{a}d_{b}d_close" for a, b in ((5, 10), (5, 30), (10, 20), (20, 30), (30, 60))] + \
+           [f"put_25d_forward_vol_{a}d_{b}d_close" for a, b in ((5, 30), (10, 20))] + ["rv_surprise_5d"] + \
+           [f"iv_to_spot_change_ratio_{t}dte_close" for t in (0, 1, 5, 10, 20, 30)] + \
+           [f"atmf_iv_{t}dte_intraday_{k}" for t in (0, 10, 30) for k in ("pct_change", "range")]
+    rviv = ["rv_iv_spread_5d", "rv_iv_ratio_5d", "rv_iv_spread_21d", "rv_iv_ratio_21d", "iv_term_slope_5d_30d",
+            "rv_term_slope_5d_21d", "iv_minus_rv_term_slope"]
+    hm = [f"spx_realized_{k}_{n}d" for k in ("skew", "kurtosis") for n in (21, 63)]
+    curv = ["vix_curvature_9d_30d_3m", "vix_curvature_1d_9d_30d", "vix_curvature_1d_30d_3m"]
+    trend = ["spx_distance_from_50dma_pct", "spx_distance_from_200dma_pct", "spx_50_200_dma_signal",
+             "spx_200dma_slope_21d_pct"]
+    position = ["delta", "gamma", "theta", "vega", "dollar_delta", "gamma_exposure", "log_moneyness", "leverage"]
+    strat = ["returns_on_margin", "rom_diff_to_spx", "rom_roll_avg_30d", "rom_roll_std_30d", "rom_roll_skew_30d",
+             "sharpe_ratio_rom_60d", "sharpe_ratio_rom_std_60d"] + [f"drawdown_{n}d" for n in (63, 126, 252)] + \
+            [f"distance_from_max_{n}d" for n in (63, 126, 252)] + \
+            ["win_rate_30d", "stability_coef_60d", "tail_ratio_rom_30d", "prior_day_strategy_drawdown_max_5d",
+             "iv_at_strike_minus_atmf_wd_rank", "returns_on_margin_wd_rank", "sharpe_ratio_rom_60d_wd_rank",
+             "drawdown_63d_wd_rank"]
+    liq = ["entry_bid_ask_spread", "entry_bid_ask_spread_pct", "entry_log_premium",
+           "entry_bid_ask_spread_pct_wd_rank", "entry_log_premium_wd_rank"]
+    intra = ["delta_distance_from_target", "iv_at_strike_minus_atmf", "iv_at_strike_minus_atmf_pct",
+             "dte_of_selected_option"]
+    return cal + morning + spx + vix + macro + surf + rviv + hm + curv + trend + position + strat + liq + intra + list(INTERACTIONS)

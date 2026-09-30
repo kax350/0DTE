@@ -30,7 +30,8 @@ TIMES = ("10:00", "10:01", "10:03", "10:05", "15:45", "15:55")
 
 def one(args):
     root, day = args
-    out = ROOT / "data" / "processed" / root / "dp" / f"{day}.pkl"
+    from vrp_ltr.config import PANEL_TAG
+    out = ROOT / "data" / "processed" / root / f"dp{PANEL_TAG}" / f"{day}.pkl"
     if out.exists():
         return day, "cached"
     if day in fomc_excluded_days():

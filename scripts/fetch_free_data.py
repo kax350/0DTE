@@ -124,6 +124,41 @@ def macro_release_dates() -> None:
     print(df.groupby("event")["date"].agg(["count", "min", "max"]))
 
 
+def put_call_ratios() -> None:
+    """SPX and VIX daily put/call ratios: Cboe CSV archives (to 2019-10-04) + daily JSON (2019-10-07 →).
+    Note a possible definitional seam at 2019-10 (archive 'SPX' vs JSON 'SPX + SPXW')."""
+    import concurrent.futures as cf
+    import json
+    frames = {}
+    for key, fn in (("spx_put_call_ratio", "spxpc.csv"), ("vix_put_call_ratio", "vixpc.csv")):
+        t = get(f"https://cdn.cboe.com/resources/options/volume_and_call_put_ratios/{fn}").decode("utf-8", "replace")
+        lines = [l for l in t.splitlines() if re.match(r"^\d{1,2}/\d{1,2}/\d{4}", l.strip())]
+        rows = []
+        for l in lines:
+            parts = [x.strip() for x in l.split(",")]
+            try:
+                rows.append({"date": dt.datetime.strptime(parts[0], "%m/%d/%Y").date(), key: float(parts[1])})
+            except ValueError:
+                continue
+        frames[key] = pd.DataFrame(rows).set_index("date")[key]
+    days = pd.bdate_range("2019-10-05", dt.date.today())
+
+    def one(d):
+        try:
+            j = json.loads(get(f"https://cdn.cboe.com/data/us/options/market_statistics/daily/{d.date()}_daily_options", 30))
+            r = {x["name"]: x["value"] for x in j["ratios"]}
+            return d.date(), float(r["SPX + SPXW PUT/CALL RATIO"]), float(r["CBOE VOLATILITY INDEX (VIX) PUT/CALL RATIO"])
+        except Exception:  # noqa: BLE001  (holidays return 403/404)
+            return None
+    with cf.ThreadPoolExecutor(16) as ex:
+        got = [x for x in ex.map(one, days) if x]
+    j = pd.DataFrame(got, columns=["date", "spx_put_call_ratio", "vix_put_call_ratio"]).set_index("date")
+    a = pd.concat([frames["spx_put_call_ratio"], frames["vix_put_call_ratio"]], axis=1)
+    out = pd.concat([a[a.index < dt.date(2019, 10, 5)], j]).sort_index()
+    out.to_csv(ROOT / "data" / "raw" / "cboe_pcr.csv")
+    print("pcr rows", len(out), out.index.min(), out.index.max())
+
+
 if __name__ == "__main__":
     what = sys.argv[1:] or ["fred", "vix", "vx", "macro"]
     if "fred" in what:
@@ -135,3 +170,5 @@ if __name__ == "__main__":
         vx_curve()
     if "macro" in what:
         macro_release_dates()
+    if "pcr" in what:
+        put_call_ratios()

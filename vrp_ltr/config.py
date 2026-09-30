@@ -10,9 +10,15 @@ from dataclasses import dataclass, field
 TZ = "America/New_York"
 
 # ---- Universe (PAPER_SPEC §2) --------------------------------------------------------
-DELTA_TARGETS: tuple[float, ...] = (0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.45)
+import os as _os
+
+# K13 perturbation (PREREGISTRATION §5): VRP_DELTA_SHIFT=+0.025 / -0.025 shifts every target.
+DELTA_SHIFT = float(_os.environ.get("VRP_DELTA_SHIFT", "0"))
+DELTA_TARGETS: tuple[float, ...] = tuple(round(d + DELTA_SHIFT, 4) for d in
+                                         (0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.45))
+PANEL_TAG = "" if DELTA_SHIFT == 0 else f"_shift{DELTA_SHIFT:+.3f}"
 SKIP = "SKIP"
-STRATEGIES: tuple[str, ...] = tuple(f"P{int(round(d * 100)):02d}" for d in DELTA_TARGETS) + (SKIP,)
+STRATEGIES: tuple[str, ...] = ("P05", "P10", "P15", "P20", "P25", "P30", "P40", "P45", SKIP)
 ENTRY_TIME = "10:00"
 MORNING_WINDOW = ("09:30", "09:59")  # 10:00 mark := 09:59 close mid (App. B)
 MINUTES_PER_SESSION = 390

@@ -22,6 +22,8 @@ from vrp_ltr.calendar import sessions  # noqa: E402
 from vrp_ltr.features import entry_ps  # noqa: E402
 from vrp_ltr.panel import build_day, morning_features, spx_close, surface_day_features  # noqa: E402
 
+from vrp_ltr.config import PANEL_TAG  # noqa: E402
+
 OUT = ROOT / "data" / "processed" / "SPXW"
 
 
@@ -32,9 +34,11 @@ def prev_close(day):
 
 
 def one(day):
-    fp, fj = OUT / "panel" / f"{day}.parquet", OUT / "dayfeat" / f"{day}.json"
-    if fp.exists() and fj.exists():
+    fp, fj = OUT / f"panel{PANEL_TAG}" / f"{day}.parquet", OUT / "dayfeat" / f"{day}.json"
+    if fp.exists() and fj.exists():  # dayfeat is target-independent and shared
         return day, "cached"
+    if not (OUT / "chain" / f"{day}.parquet").exists() or not (OUT / "surface" / f"{day}.parquet").exists():
+        return day, "pending-download"
     try:
         res = build_day(day, "SPXW")
         feats = {}
