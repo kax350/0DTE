@@ -64,16 +64,19 @@ def _log(kind: str, root: str, day: str, detail: str, usd: float, mb: float) -> 
                         round(usd, 6), round(mb, 3)])
 
 
-def _retry(fn, tries: int = 6):
+def _retry(fn, tries: int = 15):
+    """Retry network resets (egress relay) and HTTP 429 rate limits with capped exponential backoff."""
+    import random
     import time
     for k in range(tries):
         try:
             return fn()
-        except Exception as e:  # noqa: BLE001  (network resets through the egress relay)
+        except Exception as e:  # noqa: BLE001
             msg = str(e)
-            if k == tries - 1 or "budget cap" in msg or "400" in msg or "422" in msg:
+            fatal = "budget cap" in msg or " 400 " in f" {msg} " or "422" in msg
+            if fatal or k == tries - 1 or (k >= 6 and "429" not in msg):
                 raise
-            time.sleep(min(2 ** (k + 1), 60))
+            time.sleep(min(2 ** (k + 1), 90) * (1 + random.random() * 0.5))
 
 
 # Per-row prices calibrated against metadata.get_cost on 2019-06-25 (cbbo-1m) and 2019-06-17
@@ -193,6 +196,22 @@ def fetch_day(c, root: str, day: dt.date, spot_hint: float | None, rights_both_b
     fsurf = out_dir / "surface" / f"{day}.parquet"
     if fchain.exists() and (root != "SPXW" or fsurf.exists()):
         return {"day": str(day), "root": root, "status": "cached"}
+    lock = out_dir / "lock" / f"{day}.lock"
+    lock.parent.mkdir(parents=True, exist_ok=True)
+    import time as _t
+    try:
+        os.close(os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY))
+    except FileExistsError:
+        if _t.time() - lock.stat().st_mtime < 45 * 60:
+            return {"day": str(day), "root": root, "status": "locked-by-other-process"}
+        lock.touch()  # stale lock: take over
+    try:
+        return _fetch_day_body(c, root, day, spot_hint, rights_both_band, out_dir, fchain, fsurf)
+    finally:
+        lock.unlink(missing_ok=True)
+
+
+def _fetch_day_body(c, root, day, spot_hint, rights_both_band, out_dir, fchain, fsurf) -> dict:
     d = definitions(c, root, day)
     if d.empty:
         return {"day": str(day), "root": root, "status": "no-definitions"}
