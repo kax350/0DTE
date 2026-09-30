@@ -14,7 +14,6 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from vrp_ltr.calendar import sessions  # noqa: E402
 from vrp_ltr.data import databento_dl as D  # noqa: E402
-from vrp_ltr.data import spx_minute  # noqa: E402
 
 SPOT_SCALE = {"SPXW": 1.0, "XSP": 0.1, "SPY": 0.1, "QQQ": None}
 
@@ -26,8 +25,12 @@ def main() -> None:
     days = [d.date() for d in sessions(start, end)]
     log = Path(__file__).resolve().parents[1] / "data" / "reference" / f"download_log_{root}.jsonl"
 
+    lvl = pd.read_csv(Path(__file__).resolve().parents[1] / "data" / "reference" / "spx_1000.csv")
+    lvl = dict(zip(pd.to_datetime(lvl["date"]).dt.date, lvl["spx_1000"]))
+
     def one(day):
-        spx = spx_minute.level_asof(pd.Timestamp(f"{day} 10:00", tz="America/New_York"))
+        spx = lvl.get(day)
+        spx = float(spx) if spx is not None and pd.notna(spx) else None
         sc = SPOT_SCALE.get(root)
         hint = spx * sc if (spx and sc) else None
         try:

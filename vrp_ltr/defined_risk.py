@@ -31,15 +31,19 @@ def spread_credit(bs, as_, bl, al, level, prod) -> float:
         c = bs - al
     elif level == "NAT1":
         c = bs - al - prod.tick(max(bs - al, 0.0))
+    elif level == "DOUBLE":  # K16: twice the mid→(natural − 1 tick) give-up
+        mid = 0.5 * (bs + as_) - 0.5 * (bl + al)
+        nat1 = bs - al - prod.tick(max(bs - al, 0.0))
+        c = mid - 2 * (mid - nat1)
     else:
         raise ValueError(level)
     return c if c > 0 else np.nan
 
 
 def leg_fees(prod, prem_s, prem_l, level) -> float:
-    lvl = "full" if level == "NAT1" else "paper"
+    lvl = "full" if level in ("NAT1", "DOUBLE") else "paper"
     f = fee_per_contract(prod, abs(prem_s), lvl) + fee_per_contract(prod, abs(prem_l), lvl)
-    return max(f, 1.0)
+    return max(f, 1.0) * (2.0 if level == "DOUBLE" else 1.0)
 
 
 def choose_long(quotes, ks, variant, nav, prod, t0="10:00"):
@@ -130,7 +134,7 @@ def run(picks: pd.Series, day_panels: dict, root: str, variant: str, level: str,
                             if level == "MID":
                                 debit = 0.5 * (xbs + xas) - 0.5 * (xbl + xal)
                             else:
-                                debit = xas - xbl + (prod.tick(max(xas - xbl, 0.0)) if level == "NAT1" else 0.0)
+                                debit = xas - xbl + (prod.tick(max(xas - xbl, 0.0)) if level in ("NAT1", "DOUBLE") else 0.0)
                             if not np.isfinite(debit):
                                 # no exit quote: conservative — settle at intrinsic of the spread
                                 debit = max(ks - settle, 0.0) - max(kl - settle, 0.0)

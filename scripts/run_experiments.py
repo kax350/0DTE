@@ -172,6 +172,28 @@ def main():
                         "pass": bool((b > 0).mean() >= 0.95 and len(o25) and o25.mean() > 0)}
     (out / f"selection_alpha_{a.gate}_ext{a.ext}.json").write_text(json.dumps({"train_best_bucket": tb, "verdict": verdict}, indent=1, default=str))
     pd.to_pickle({k: v for k, v in table.items()}, out / f"one_contract_series_{a.gate}_ext{a.ext}.pkl")
+    # breakdowns for M-HEAD / M-FORCED / best-train fixed at L1 and L3
+    from vrp_ltr.features import daily_sources
+    from vrp_ltr.execution import regt_short_put_margin
+    vix = daily_sources()["VIX"]
+    vix_prev, vix_same = vix.shift(1).to_dict(), vix.to_dict()
+    ct = cands.set_index(["date", "strategy"])
+    brows = []
+    for name in ("M-HEAD", "M-FORCED", "M-SKIP", "B-FIX-BESTTRAIN"):
+        p = allp[name].reindex(days)
+        for d, s_ in p.items():
+            if s_ is None or s_ == SKIP or (d, s_) not in ct.index:
+                brows.append({"strategy": name, "date": d, "pick": SKIP, "year": d.year})
+                continue
+            r = ct.loc[(d, s_)]
+            v0, v1 = vix_prev.get(d, np.nan), vix_same.get(d, np.nan)
+            reg = lambda v: "low" if v < 15 else ("mid" if v <= 25 else "high")  # noqa: E731
+            brows.append({"strategy": name, "date": d, "year": d.year, "pick": s_, "vix_regime_prev": reg(v0),
+                          "vix_regime_sameday_paper": reg(v1), "premium_mid": r["mid"],
+                          "margin_regt": regt_short_put_margin(r["mid"], r["spot"], r["strike"]),
+                          "net_L1": r["net_L1"], "net_L3": r["net_L3"], "net_L3_1003": r["net_L3_1003"]})
+    B = pd.DataFrame(brows)
+    B.to_csv(out / f"breakdown_{a.gate}_ext{a.ext}.csv", index=False)
     print(json.dumps(verdict, indent=1))
 
 

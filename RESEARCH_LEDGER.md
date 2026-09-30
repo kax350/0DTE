@@ -21,6 +21,7 @@ Times America/New_York. Each entry: what changed, why, and whether any out-of-sa
 | 14 | 17:05 | Pilot SPXW 2019-06 (training period) downloaded and validated: parity spot vs SPX 1-min median 0.72 bp (p95 2.18 bp); 0 crossed quotes; 0DTE M/W/F pattern correct; 5Δ available 20/20 days. `docs/validation_SPXW_2019-06-01_2019-06-30.csv`. Pipeline smoke-tested on 2019-06-03/04 (training data). | no |
 | 15 | 17:05 | Clarifications fixed before any outcome data is used (not changes to PREREG): (a) surface DTE target picks the expiry with the nearest calendar DTE, ties → shorter (so on M/W/F the "1-DTE" point equals 0-DTE); (b) CPI/NFP release dates unavailable (BLS 403) → 4 calendar features not built unless a FRED key is supplied; SPX/VIX put-call ratios not built (8 features); (c) morning RV uses the paper's literal Σ formula. | no |
 | 16 | 17:10 | Bulk download launched: SPXW 2017-01 → 2026-09; XSP and SPY 2021-01 → 2026-09. | no |
+| 17 | 17:45 | **Data-licensing incident.** Commits c16d362 and 27a2c0a pushed 284 processed quote files derived from Databento OPRA data, and b76635a pushed a small Cboe delayed-quote table, to a **public** repository. Fix going forward: the files are untracked and git-ignored (they stay on local disk). Rewriting history to purge them was blocked by the permission system and is left to the user. | no |
 
 ## Spend log (Databento, USD)
 

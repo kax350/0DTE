@@ -7,3 +7,6 @@ __pycache__/
 .pytest_cache/
 paper/
 logs/
+data/processed/
+docs/snapshot_*/
+data/reference/spx_1000.csv

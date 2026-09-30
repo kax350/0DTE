@@ -25,7 +25,7 @@ from vrp_ltr.defined_risk import run  # noqa: E402
 from run_experiments import load_picks  # noqa: E402
 
 VARIANTS_X = ["NAKED", "W5", "W10", "CAP1", "CAP2", "CAP4"]
-LEVELS = ["MID", "NAT", "NAT1"]
+LEVELS = ["MID", "NAT", "NAT1", "DOUBLE"]
 FILLS = ["10:00", "10:01", "10:03", "10:05"]
 PRIMARY = ("CAP2", "NAT", "10:03")
 YEARS = [2021, 2022, 2023, 2024, 2025, 2026]
@@ -73,8 +73,8 @@ def pass_eval(res: dict, key_primary: str, cap_pct: float) -> dict:
         "6_maxdd_lt10pct": g("ALL_2021_2026").get("max_dd", 1) < 0.10,
         "7_maxloss_within_budget": (g("ALL_2021_2026").get("max_loss_pct_nav") or 0) <= cap_pct + 1e-9,
         "8_nat_positive": res.get(key_primary.replace("|NAT1|", "|NAT|"), p).get("ALL_2021_2026", {}).get("mean_daily", -1) > 0,
-        "9_delay_1001_1003_positive": all(res.get(key_primary.replace("10:03", t), {}).get("ALL_2021_2026", {}).get("mean_daily", -1) > 0
-                                          for t in ("10:01", "10:03")),
+        "9_delay_1001_1003_1005_positive": all(res.get(key_primary.replace("10:03", t), {}).get("ALL_2021_2026", {}).get("mean_daily", -1) > 0
+                                          for t in ("10:01", "10:03", "10:05")),
         "10_minus_best5_positive": g("ALL_2021_2026").get("minus_best5", -1) > 0,
         "11_bootstrap_p95": g("ALL_2021_2026").get("boot_p_gt0", 0) >= 0.95,
     }
@@ -84,6 +84,71 @@ def pass_eval(res: dict, key_primary: str, cap_pct: float) -> dict:
         (("2025",) if "3_2025_sharpe_gt1" in fails else ()))
     verdict = "PASS" if not fails else ("WEAK PASS" if weak else "FAIL")
     return {"criteria": crit, "failed": fails, "verdict": verdict}
+
+
+def edge_gate(picks: pd.Series) -> tuple[pd.Series, pd.Series]:
+    """X-*-EDGE (PREREG §4): keep the pick only if F̂_train(edge_t) >= 0.50, where F̂_train is the ECDF
+    of the edge over the training years of the model that produced that day's pick. Returns
+    (gated picks, edge percentile)."""
+    from vrp_ltr.assemble import load_candidates
+    from vrp_ltr.calendar import sessions
+    from vrp_ltr.config import WINDOWS
+    from vrp_ltr.sizing import ecdf, edge_value
+    from run_sizing import intraday_inputs
+    alld = [d.date() for d in sessions("2018-01-01", "2026-12-31")]
+    atm = load_candidates(alld).groupby("date")["atmf_iv_entry"].first().to_dict()
+    ii = intraday_inputs(alld)
+    edge = {d: edge_value(atm.get(d, np.nan), ii.get(d, {}).get("sigma_intra5d", np.nan)) for d in alld}
+    win_for_year = {2021: "WF1", 2022: "WF2", 2023: "WF3", 2024: "WF4", 2025: "OOT", 2026: "OOT"}
+    Fs = {}
+    for w in set(win_for_year.values()):
+        y0, y1, _ = WINDOWS[w]
+        Fs[w] = ecdf(np.array([edge[d] for d in alld if y0 <= d.year <= y1]))
+    pct = pd.Series({d: (Fs[win_for_year[d.year]](edge[d]) if np.isfinite(edge.get(d, np.nan)) else np.nan)
+                     for d in picks.index})
+    gated = picks.where(pct >= 0.50, SKIP_NAME)
+    return gated, pct
+
+
+SKIP_NAME = "SKIP"
+
+
+def discretisation(picks: pd.Series, dp: dict, pct: pd.Series, root: str) -> dict:
+    """EA on the naked product at $25k: integer contracts vs fractional (ideal). u_max per window from
+    the SPXW paper-sizing calibration if available, else 0.80 (the grid top where the paper pins)."""
+    from vrp_ltr.config import PRODUCTS
+    from vrp_ltr.execution import regt_short_put_margin
+    prod = PRODUCTS[root]
+    u_max = 0.80
+    nav_i = nav_f = 25_000.0
+    ri, rf = [], []
+    for d, s in picks.items():
+        x = dp.get(d)
+        pi = pf = 0.0
+        if s not in (None, SKIP_NAME) and x is not None and s in x["cands"] and np.isfinite(pct.get(d, np.nan)):
+            k = x["cands"][s]
+            q = x["quotes"]
+            r = q[(q["t"] == "10:03") & np.isclose(q["strike"], k)]
+            if len(r) and r["bid"].iloc[0] > 0 and x["settle"] is not None:
+                cr = float(r["bid"].iloc[0])
+                M = regt_short_put_margin(cr, x["spot"], k, prod.multiplier)
+                per = prod.multiplier * (cr - max(k - x["settle"], 0.0)) - 1.0
+                qf = u_max * pct[d] * nav_f / M
+                pf = qf * per
+                qi = int(np.floor(u_max * pct[d] * nav_i / M))
+                pi = qi * per
+        ri.append(pi / nav_i)
+        rf.append(pf / nav_f)
+        nav_i += pi
+        nav_f += pf
+    ri, rf = np.array(ri), np.array(rf)
+    return {"integer": {"sharpe": M_.sharpe_arithmetic(ri), "total_ret": float(np.prod(1 + ri) - 1),
+                        "trade_days": int((ri != 0).sum())},
+            "fractional": {"sharpe": M_.sharpe_arithmetic(rf), "total_ret": float(np.prod(1 + rf) - 1),
+                           "trade_days": int((rf != 0).sum())}}
+
+
+M_ = M
 
 
 def main():
@@ -97,12 +162,14 @@ def main():
     res, series = {}, {}
     exits = [None] if a.root == "XSP" else ["15:45", "15:55"]
     variants = VARIANTS_X if a.root == "XSP" else [v for v in VARIANTS_X if v != "NAKED"]
-    for v in variants:
+    edge_picks, pct = edge_gate(picks)
+    runs = [(v, "", picks) for v in variants] + [(v, "-EDGE", edge_picks) for v in variants]
+    for v, tag, pk in runs:
         for lvl in LEVELS:
             for ft in FILLS:
                 for ex in exits:
-                    key = f"{a.root}|{v}|{lvl}|{ft}|{ex}"
-                    df = run(picks, dp, a.root, v, lvl, ft, ex)
+                    key = f"{a.root}|{v}{tag}|{lvl}|{ft}|{ex}"
+                    df = run(pk, dp, a.root, v, lvl, ft, ex)
                     registry.record(f"25k|{a.policy}|{a.gate}|{key}", "2021-2026")
                     series[key] = df
                     res[key] = stats(df)
@@ -112,7 +179,9 @@ def main():
         pk = f"{a.root}|{PRIMARY[0]}|{PRIMARY[1]}|{PRIMARY[2]}|{ex}"
         if pk in res:
             evals[pk] = pass_eval(res, pk, 0.02)
-    out.write_text(json.dumps({"results": res, "primary_eval": evals, "n_trials": registry.n_trials()}, indent=1, default=float))
+    disc = discretisation(picks, dp, pct, a.root) if a.root == "XSP" else None
+    out.write_text(json.dumps({"results": res, "primary_eval": evals, "discretisation_EA_naked": disc,
+                               "n_trials": registry.n_trials()}, indent=1, default=float))
     pd.to_pickle(series, out.with_suffix(".pkl"))
     print(json.dumps(evals, indent=1, default=str))
 

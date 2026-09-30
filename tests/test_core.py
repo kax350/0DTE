@@ -109,3 +109,21 @@ def test_shadow_hash_chain(tmp_path, monkeypatch):
     lines[0] = lines[0].replace('"x": 1', '"x": 9')
     (tmp_path / "log.jsonl").write_text("\n".join(lines) + "\n")
     assert not shadow.verify()
+
+
+def test_defined_risk_cap_and_settlement():
+    import datetime as dt
+    from vrp_ltr.defined_risk import run
+    d = dt.date(2024, 6, 3)
+    q = pd.DataFrame({"t": ["10:00"] * 4 + ["10:03"] * 4, "strike": [95, 96, 97, 100] * 2,
+                      "bid": [.02, .04, .08, .60, .02, .04, .08, .60], "ask": [.03, .05, .09, .62, .03, .05, .09, .62]})
+    dp = {d: {"cands": {"P10": 100.0}, "quotes": q, "settle": 98.0, "spot": 101.0}}
+    picks = pd.Series({d: "P10"})
+    r = run(picks, dp, "XSP", "CAP2", "NAT", "10:03", nav0=25_000).iloc[0]
+    # widest long strike with (W - credit)*100 + fees <= $500: W=5 (95): credit .57 → 443 + fees ok
+    assert r["long_k"] == 95 and r["traded"] == 1
+    assert r["max_loss"] <= 500 + 1e-9
+    # settle 98: short 100 put pays 2.00, long 95 worthless → pnl = (0.57 - 2.00)*100 - fees
+    assert r["pnl"] == pytest.approx((0.57 - 2.0) * 100 - r["max_loss"] + (5 - 0.57) * 100, abs=1e-6)
+    w5 = run(picks, dp, "XSP", "W5", "MID", "10:00", nav0=25_000).iloc[0]
+    assert w5["credit"] == pytest.approx(0.61 - 0.025)
