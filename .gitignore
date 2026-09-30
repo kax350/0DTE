@@ -10,3 +10,5 @@ logs/
 data/processed/
 docs/snapshot_*/
 data/reference/spx_1000.csv
+data/reference/download_log_*.jsonl
+data/reference/databento_spend.csv
