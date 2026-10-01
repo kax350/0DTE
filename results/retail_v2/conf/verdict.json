@@ -1,0 +1,1740 @@
+{
+ "period": "conf",
+ "incremental_alpha_vs_R0": {
+  "B2-EDGE": {
+   "mean_diff": 0.3233444075,
+   "p_stationary": 0.6432,
+   "p_block": 0.6598,
+   "dm_p": 0.3297366646,
+   "years_positive": "2/4",
+   "incremental": false
+  },
+  "B2-TS": {
+   "mean_diff": -0.014529346600000001,
+   "p_stationary": 0.4303,
+   "p_block": 0.4364,
+   "dm_p": 0.5140037552,
+   "years_positive": "1/4",
+   "incremental": false
+  },
+  "R1": {
+   "mean_diff": -2.7441085271,
+   "p_stationary": 0.0043,
+   "p_block": 0.0037,
+   "dm_p": 0.9857761335,
+   "years_positive": "0/4",
+   "incremental": false
+  },
+  "R2-A": {
+   "mean_diff": 0.0,
+   "p_stationary": 0.0,
+   "p_block": 0.0,
+   "dm_p": NaN,
+   "years_positive": "0/4",
+   "incremental": false
+  },
+  "R2-B": {
+   "mean_diff": -0.23265780730000002,
+   "p_stationary": 0.0,
+   "p_block": 0.0,
+   "dm_p": 0.9999999421,
+   "years_positive": "0/4",
+   "incremental": false
+  },
+  "R3": {
+   "mean_diff": -0.9288039867000001,
+   "p_stationary": 0.1366,
+   "p_block": 0.147,
+   "dm_p": 0.8397481243,
+   "years_positive": "0/4",
+   "incremental": false
+  },
+  "R4-1.0": {
+   "mean_diff": 0.0249944629,
+   "p_stationary": 0.47590000000000005,
+   "p_block": 0.48860000000000003,
+   "dm_p": 0.4865004804,
+   "years_positive": "2/4",
+   "incremental": false
+  },
+  "R4-1.5": {
+   "mean_diff": -0.1287596899,
+   "p_stationary": 0.3972,
+   "p_block": 0.402,
+   "dm_p": 0.5692438909,
+   "years_positive": "1/4",
+   "incremental": false
+  },
+  "R4-2.0": {
+   "mean_diff": -0.244496124,
+   "p_stationary": 0.33940000000000003,
+   "p_block": 0.3408,
+   "dm_p": 0.6325268926000001,
+   "years_positive": "1/4",
+   "incremental": false
+  }
+ },
+ "qualified": [],
+ "chosen": "R0",
+ "criteria": {
+  "R0": {
+   "P1_exec_ratio": 0.31561461794019935,
+   "P2_mean": 0.3826688815,
+   "P2_boot": 0.7292000000000001,
+   "P3_years_pos": "3/4",
+   "P5_maxdd_pct": 0.0242572,
+   "P1": false,
+   "P2": false,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": false,
+   "hard_constraints": true
+  },
+  "B2-EDGE": {
+   "P1_exec_ratio": 0.32625994694960214,
+   "P2_mean": 0.706013289,
+   "P2_boot": 1.0,
+   "P3_years_pos": "4/4",
+   "P5_maxdd_pct": 0.0023736,
+   "P1": false,
+   "P2": true,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "hard_constraints": true
+  },
+  "B2-TS": {
+   "P1_exec_ratio": 0.2815533980582524,
+   "P2_mean": 0.3681395349,
+   "P2_boot": 0.7558,
+   "P3_years_pos": "3/4",
+   "P5_maxdd_pct": 0.024946,
+   "P1": false,
+   "P2": false,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": false,
+   "hard_constraints": true
+  },
+  "R1": {
+   "P1_exec_ratio": 0.5083102493074793,
+   "P2_mean": -2.3614396456,
+   "P2_boot": 0.0391,
+   "P3_years_pos": "1/4",
+   "P5_maxdd_pct": 0.0997912,
+   "P1": false,
+   "P2": false,
+   "P2_weak": false,
+   "P3": false,
+   "P4": false,
+   "P5": true,
+   "P6": false,
+   "hard_constraints": true
+  },
+  "R2-A": {
+   "P1_exec_ratio": 0.31561461794019935,
+   "P2_mean": 0.3826688815,
+   "P2_boot": 0.7292000000000001,
+   "P3_years_pos": "3/4",
+   "P5_maxdd_pct": 0.0242572,
+   "P1": false,
+   "P2": false,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": false,
+   "hard_constraints": true
+  },
+  "R2-B": {
+   "P1_exec_ratio": 0.3407202216066482,
+   "P2_mean": 0.1500110742,
+   "P2_boot": 0.6123000000000001,
+   "P3_years_pos": "3/4",
+   "P5_maxdd_pct": 0.025130399999999997,
+   "P1": false,
+   "P2": false,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": false,
+   "hard_constraints": true
+  },
+  "R3": {
+   "P1_exec_ratio": 0.49723145071982283,
+   "P2_mean": -0.5461351052,
+   "P2_boot": 0.3287,
+   "P3_years_pos": "2/4",
+   "P5_maxdd_pct": 0.0459648,
+   "P1": false,
+   "P2": false,
+   "P2_weak": false,
+   "P3": false,
+   "P4": false,
+   "P5": true,
+   "P6": false,
+   "hard_constraints": true
+  },
+  "R4-1.0": {
+   "P1_exec_ratio": 0.07761194029850746,
+   "P2_mean": 0.4076633444,
+   "P2_boot": 1.0,
+   "P3_years_pos": "4/4",
+   "P5_maxdd_pct": 0.0,
+   "P1": false,
+   "P2": true,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": false,
+   "hard_constraints": true
+  },
+  "R4-1.5": {
+   "P1_exec_ratio": 0.043343653250773995,
+   "P2_mean": 0.25390919160000003,
+   "P2_boot": 1.0,
+   "P3_years_pos": "4/4",
+   "P5_maxdd_pct": 0.0,
+   "P1": false,
+   "P2": true,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "hard_constraints": true
+  },
+  "R4-2.0": {
+   "P1_exec_ratio": 0.01904761904761905,
+   "P2_mean": 0.1381727575,
+   "P2_boot": 0.9999,
+   "P3_years_pos": "4/4",
+   "P5_maxdd_pct": 0.0,
+   "P1": false,
+   "P2": true,
+   "P2_weak": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "hard_constraints": true
+  }
+ },
+ "spy_validation": {
+  "rule": "R0",
+  "mean_daily_pnl": -2.2205752212,
+  "total_pnl": -2007.4,
+  "ok": false
+ },
+ "verdict": "FAIL / NO RETAIL EDGE",
+ "kill_tests": {
+  "R0": {
+   "tests": {
+    "K1": {
+     "value": -26.9,
+     "survive": false
+    },
+    "K2": {
+     "value": 454.09,
+     "survive": true
+    },
+    "K3": {
+     "value": 137.22,
+     "survive": true
+    },
+    "K4": {
+     "value": -104.84,
+     "survive": false
+    },
+    "K5": {
+     "value": -323.98,
+     "survive": false
+    },
+    "K6": {
+     "value": -362.5999999999,
+     "survive": false
+    },
+    "K7": {
+     "value": 502.69,
+     "survive": true
+    },
+    "K8": {
+     "value": 148.86,
+     "survive": true
+    },
+    "K16": {
+     "value": -18.36,
+     "survive": false
+    },
+    "K17": {
+     "value": 193.74,
+     "survive": true
+    },
+    "K18": {
+     "value": 742.07,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 759.6,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      -1094.1299999999,
+      34.24
+     ],
+     "survive": false
+    },
+    "K9": {
+     "value": 242.44000000001336,
+     "survive": true
+    },
+    "K10": {
+     "value": 99.74000000001323,
+     "survive": true
+    },
+    "K11": {
+     "value": 516.8600000000088,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 279.200000000013,
+     "survive": true
+    },
+    "K13": {
+     "value": 1544.0499999999997,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": 0.7752464488084979
+    },
+    "K25": {
+     "value": 0.7279,
+     "survive": false
+    },
+    "K15": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": false,
+   "noncritical_frac": 0.625,
+   "noncritical_n": 8
+  },
+  "B2-EDGE": {
+   "tests": {
+    "K1": {
+     "value": 476.16,
+     "survive": true
+    },
+    "K2": {
+     "value": 431.04,
+     "survive": true
+    },
+    "K3": {
+     "value": 278.94,
+     "survive": true
+    },
+    "K4": {
+     "value": 263.46,
+     "survive": true
+    },
+    "K5": {
+     "value": 336.91,
+     "survive": true
+    },
+    "K6": {
+     "value": 462.58,
+     "survive": true
+    },
+    "K7": {
+     "value": 465.97,
+     "survive": true
+    },
+    "K8": {
+     "value": 313.71,
+     "survive": true
+    },
+    "K16": {
+     "value": 213.38,
+     "survive": true
+    },
+    "K17": {
+     "value": 104.44,
+     "survive": true
+    },
+    "K18": {
+     "value": 928.61,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 1305.16,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      494.98,
+      19.5
+     ],
+     "survive": true
+    },
+    "K9": {
+     "value": 586.2000000000029,
+     "survive": true
+    },
+    "K10": {
+     "value": 385.57000000000284,
+     "survive": true
+    },
+    "K11": {
+     "value": 546.86,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 578.4800000000027,
+     "survive": true
+    },
+    "K13": {
+     "value": 682.58,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": 0.06464620373957435
+    },
+    "K25": {
+     "value": 1.0,
+     "survive": true
+    },
+    "K15": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": true,
+   "noncritical_frac": 1.0,
+   "noncritical_n": 8
+  },
+  "B2-TS": {
+   "tests": {
+    "K1": {
+     "value": 67.96,
+     "survive": true
+    },
+    "K2": {
+     "value": 166.97,
+     "survive": true
+    },
+    "K3": {
+     "value": -54.8,
+     "survive": false
+    },
+    "K4": {
+     "value": -197.99,
+     "survive": false
+    },
+    "K5": {
+     "value": 8.76,
+     "survive": true
+    },
+    "K6": {
+     "value": 825.0700000001,
+     "survive": true
+    },
+    "K7": {
+     "value": 192.01,
+     "survive": true
+    },
+    "K8": {
+     "value": -60.71,
+     "survive": false
+    },
+    "K16": {
+     "value": -160.9,
+     "survive": false
+    },
+    "K17": {
+     "value": 147.79,
+     "survive": true
+    },
+    "K18": {
+     "value": 606.21,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 715.46,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      436.4700000001,
+      25.72
+     ],
+     "survive": true
+    },
+    "K9": {
+     "value": 258.21000000000873,
+     "survive": true
+    },
+    "K10": {
+     "value": 176.5100000000087,
+     "survive": true
+    },
+    "K11": {
+     "value": 398.4600000000067,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 266.2300000000088,
+     "survive": true
+    },
+    "K13": {
+     "value": 1086.48,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": 0.6883409709163182
+    },
+    "K25": {
+     "value": 0.7562,
+     "survive": false
+    },
+    "K15": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": false,
+   "noncritical_frac": 0.625,
+   "noncritical_n": 8
+  },
+  "R1": {
+   "tests": {
+    "K1": {
+     "value": -2608.16,
+     "survive": false
+    },
+    "K2": {
+     "value": -2072.29,
+     "survive": false
+    },
+    "K3": {
+     "value": -2471.39,
+     "survive": false
+    },
+    "K4": {
+     "value": -2639.17,
+     "survive": false
+    },
+    "K5": {
+     "value": -2673.19,
+     "survive": false
+    },
+    "K6": {
+     "value": -2634.7299999999,
+     "survive": false
+    },
+    "K7": {
+     "value": -2024.72,
+     "survive": false
+    },
+    "K8": {
+     "value": -2436.73,
+     "survive": false
+    },
+    "K16": {
+     "value": -2740.48,
+     "survive": false
+    },
+    "K17": {
+     "value": -979.47,
+     "survive": false
+    },
+    "K18": {
+     "value": -1953.0699999999,
+     "survive": false
+    },
+    "K18-S1": {
+     "value": -4024.3799999999,
+     "survive": false
+    },
+    "K14": {
+     "value": [
+      -2171.2399999999,
+      -1689.99
+     ],
+     "survive": false
+    },
+    "K9": {
+     "value": -2284.7599999999575,
+     "survive": false
+    },
+    "K10": {
+     "value": -2195.709999999965,
+     "survive": false
+    },
+    "K11": {
+     "value": -884.2499999999836,
+     "survive": false,
+     "reported_only": true
+    },
+    "K12": {
+     "value": -2296.279999999957,
+     "survive": false
+    },
+    "K13": {
+     "value": 210.17000000003395,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": 0.9163221160428197
+    },
+    "K25": {
+     "value": 0.038,
+     "survive": false
+    },
+    "K15": {
+     "value": [
+      null,
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": -2477.9299999999707,
+     "survive": false
+    },
+    "K24": {
+     "value": -2477.9299999999707,
+     "survive": false
+    }
+   },
+   "critical_all": false,
+   "noncritical_frac": 0.0,
+   "noncritical_n": 10
+  },
+  "R2-A": {
+   "tests": {
+    "K1": {
+     "value": -26.9,
+     "survive": false
+    },
+    "K2": {
+     "value": 454.09,
+     "survive": true
+    },
+    "K3": {
+     "value": 137.22,
+     "survive": true
+    },
+    "K4": {
+     "value": -104.84,
+     "survive": false
+    },
+    "K5": {
+     "value": -323.98,
+     "survive": false
+    },
+    "K6": {
+     "value": -362.5999999999,
+     "survive": false
+    },
+    "K7": {
+     "value": 502.69,
+     "survive": true
+    },
+    "K8": {
+     "value": 148.86,
+     "survive": true
+    },
+    "K16": {
+     "value": -18.36,
+     "survive": false
+    },
+    "K17": {
+     "value": 193.74,
+     "survive": true
+    },
+    "K18": {
+     "value": 742.07,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 759.6,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      -1094.1299999999,
+      34.24
+     ],
+     "survive": false
+    },
+    "K9": {
+     "value": 242.44000000001336,
+     "survive": true
+    },
+    "K10": {
+     "value": 99.74000000001323,
+     "survive": true
+    },
+    "K11": {
+     "value": 516.8600000000088,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 279.200000000013,
+     "survive": true
+    },
+    "K13": {
+     "value": 1544.0499999999997,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": 0.7752464488084979
+    },
+    "K25": {
+     "value": 0.7279,
+     "survive": false
+    },
+    "K15": {
+     "value": [
+      null,
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": 0.0,
+     "survive": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": false,
+   "noncritical_frac": 0.5555555555555556,
+   "noncritical_n": 9
+  },
+  "R2-B": {
+   "tests": {
+    "K1": {
+     "value": -186.08,
+     "survive": false
+    },
+    "K2": {
+     "value": 327.86,
+     "survive": true
+    },
+    "K3": {
+     "value": 49.85,
+     "survive": true
+    },
+    "K4": {
+     "value": -268.52,
+     "survive": false
+    },
+    "K5": {
+     "value": -441.46,
+     "survive": false
+    },
+    "K6": {
+     "value": -982.1099999999,
+     "survive": false
+    },
+    "K7": {
+     "value": 364.42,
+     "survive": true
+    },
+    "K8": {
+     "value": 64.14,
+     "survive": true
+    },
+    "K16": {
+     "value": -83.6,
+     "survive": false
+    },
+    "K17": {
+     "value": 167.23,
+     "survive": true
+    },
+    "K18": {
+     "value": 462.66,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 329.72,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      -1582.9599999999,
+      34.24
+     ],
+     "survive": false
+    },
+    "K9": {
+     "value": 32.35000000001306,
+     "survive": true
+    },
+    "K10": {
+     "value": -87.5499999999868,
+     "survive": false
+    },
+    "K11": {
+     "value": 419.0700000000087,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 69.1100000000132,
+     "survive": true
+    },
+    "K13": {
+     "value": 1333.9599999999998,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": 0.8971681376181703
+    },
+    "K25": {
+     "value": 0.6114,
+     "survive": false
+    },
+    "K15": {
+     "value": [
+      null,
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": -210.09000000000015,
+     "survive": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": false,
+   "noncritical_frac": 0.5555555555555556,
+   "noncritical_n": 9
+  },
+  "R3": {
+   "tests": {
+    "K1": {
+     "value": -1073.02,
+     "survive": false
+    },
+    "K2": {
+     "value": -549.79,
+     "survive": false
+    },
+    "K3": {
+     "value": -986.86,
+     "survive": false
+    },
+    "K4": {
+     "value": -1031.31,
+     "survive": false
+    },
+    "K5": {
+     "value": -1131.9399999999,
+     "survive": false
+    },
+    "K6": {
+     "value": -1348.0499999999,
+     "survive": false
+    },
+    "K7": {
+     "value": -500.47,
+     "survive": false
+    },
+    "K8": {
+     "value": -996.2,
+     "survive": false
+    },
+    "K16": {
+     "value": -1322.72,
+     "survive": false
+    },
+    "K17": {
+     "value": -408.56,
+     "survive": false
+    },
+    "K18": {
+     "value": -40.0599999999,
+     "survive": false
+    },
+    "K18-S1": {
+     "value": -938.1599999999,
+     "survive": false
+    },
+    "K14": {
+     "value": [
+      -861.3799999999,
+      -268.78
+     ],
+     "survive": false
+    },
+    "K9": {
+     "value": -617.8399999999556,
+     "survive": false
+    },
+    "K10": {
+     "value": -669.5699999999605,
+     "survive": false
+    },
+    "K11": {
+     "value": 52.68000000001855,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": -617.5099999999529,
+     "survive": false
+    },
+    "K13": {
+     "value": 1691.2900000000343,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": 0.6951002978387553
+    },
+    "K25": {
+     "value": 0.3483,
+     "survive": false
+    },
+    "K15": {
+     "value": [
+      null,
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": [
+      null
+     ],
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": -838.7099999999664,
+     "survive": false
+    },
+    "K24": {
+     "value": -838.7099999999664,
+     "survive": false
+    }
+   },
+   "critical_all": false,
+   "noncritical_frac": 0.0,
+   "noncritical_n": 10
+  },
+  "R4-1.0": {
+   "tests": {
+    "K1": {
+     "value": 298.24,
+     "survive": true
+    },
+    "K2": {
+     "value": 274.19,
+     "survive": true
+    },
+    "K3": {
+     "value": 210.37,
+     "survive": true
+    },
+    "K4": {
+     "value": -100.18,
+     "survive": false
+    },
+    "K5": {
+     "value": 449.86,
+     "survive": true
+    },
+    "K6": {
+     "value": 640.62,
+     "survive": true
+    },
+    "K7": {
+     "value": 289.27,
+     "survive": true
+    },
+    "K8": {
+     "value": 231.31,
+     "survive": true
+    },
+    "K16": {
+     "value": 167.24,
+     "survive": true
+    },
+    "K17": {
+     "value": 64.12,
+     "survive": true
+    },
+    "K18": {
+     "value": 487.0,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 743.94,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      660.64,
+      15.89
+     ],
+     "survive": true
+    },
+    "K9": {
+     "value": 326.15999999999997,
+     "survive": true
+    },
+    "K10": {
+     "value": 237.23000000000002,
+     "survive": true
+    },
+    "K11": {
+     "value": 315.71000000000004,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 303.77,
+     "survive": true
+    },
+    "K13": {
+     "value": 350.07,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": -0.04903292404650658
+    },
+    "K25": {
+     "value": 1.0,
+     "survive": true
+    },
+    "K15": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": false,
+   "noncritical_frac": 1.0,
+   "noncritical_n": 8
+  },
+  "R4-1.5": {
+   "tests": {
+    "K1": {
+     "value": 191.56,
+     "survive": true
+    },
+    "K2": {
+     "value": 189.4,
+     "survive": true
+    },
+    "K3": {
+     "value": 144.34,
+     "survive": true
+    },
+    "K4": {
+     "value": 135.5,
+     "survive": true
+    },
+    "K5": {
+     "value": 338.39,
+     "survive": true
+    },
+    "K6": {
+     "value": 653.79,
+     "survive": true
+    },
+    "K7": {
+     "value": 195.76,
+     "survive": true
+    },
+    "K8": {
+     "value": 161.78,
+     "survive": true
+    },
+    "K16": {
+     "value": 118.68,
+     "survive": true
+    },
+    "K17": {
+     "value": 32.6,
+     "survive": true
+    },
+    "K18": {
+     "value": 414.85,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 461.96,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      677.42,
+      12.13
+     ],
+     "survive": true
+    },
+    "K9": {
+     "value": 199.84,
+     "survive": true
+    },
+    "K10": {
+     "value": 161.79,
+     "survive": true
+    },
+    "K11": {
+     "value": 186.39,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 166.08000000000004,
+     "survive": true
+    },
+    "K13": {
+     "value": 207.77999999999997,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": -0.09377180739706907
+    },
+    "K25": {
+     "value": 1.0,
+     "survive": true
+    },
+    "K15": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": true,
+   "noncritical_frac": 1.0,
+   "noncritical_n": 8
+  },
+  "R4-2.0": {
+   "tests": {
+    "K1": {
+     "value": 108.54,
+     "survive": true
+    },
+    "K2": {
+     "value": 112.77,
+     "survive": true
+    },
+    "K3": {
+     "value": 100.77,
+     "survive": true
+    },
+    "K4": {
+     "value": 78.4,
+     "survive": true
+    },
+    "K5": {
+     "value": 257.23,
+     "survive": true
+    },
+    "K6": {
+     "value": 361.17,
+     "survive": true
+    },
+    "K7": {
+     "value": 112.77,
+     "survive": true
+    },
+    "K8": {
+     "value": 100.77,
+     "survive": true
+    },
+    "K16": {
+     "value": 84.54,
+     "survive": true
+    },
+    "K17": {
+     "value": 17.53,
+     "survive": true
+    },
+    "K18": {
+     "value": 279.25,
+     "survive": true
+    },
+    "K18-S1": {
+     "value": 250.64,
+     "survive": true
+    },
+    "K14": {
+     "value": [
+      480.26,
+      7.37
+     ],
+     "survive": true
+    },
+    "K9": {
+     "value": 104.4,
+     "survive": true
+    },
+    "K10": {
+     "value": 81.33,
+     "survive": true
+    },
+    "K11": {
+     "value": 116.00999999999999,
+     "survive": true,
+     "reported_only": true
+    },
+    "K12": {
+     "value": 62.56999999999999,
+     "survive": true
+    },
+    "K13": {
+     "value": 83.42,
+     "survive": true,
+     "reported_only": true,
+     "worst5_share_of_gross_profit": -0.3314097940209986
+    },
+    "K25": {
+     "value": 1.0,
+     "survive": true
+    },
+    "K15": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K19": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K20": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K21": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K22": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K23": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    },
+    "K24": {
+     "value": null,
+     "survive": null,
+     "applicable": false
+    }
+   },
+   "critical_all": true,
+   "noncritical_frac": 1.0,
+   "noncritical_n": 8
+  }
+ },
+ "delayed_limit": {
+  "DL@10:01|R0": {
+   "submitted": 450,
+   "fill_rate": 0.32666666666666666,
+   "nat_pnl_mean_filled_days": 0.4734693877551621,
+   "nat_pnl_mean_missed_days": 1.0002310231023104
+  },
+  "DL@10:01|R1": {
+   "submitted": 432,
+   "fill_rate": 0.49074074074074076,
+   "nat_pnl_mean_filled_days": -7.343726415094174,
+   "nat_pnl_mean_missed_days": -2.443909090909078
+  },
+  "DL@10:01|R2-A": {
+   "submitted": 450,
+   "fill_rate": 0.32666666666666666,
+   "nat_pnl_mean_filled_days": 0.4734693877551621,
+   "nat_pnl_mean_missed_days": 1.0002310231023104
+  },
+  "DL@10:01|R2-B": {
+   "submitted": 356,
+   "fill_rate": 0.35674157303370785,
+   "nat_pnl_mean_filled_days": -0.27653543307079637,
+   "nat_pnl_mean_missed_days": 1.1289082969432314
+  },
+  "DL@10:01|R3": {
+   "submitted": 554,
+   "fill_rate": 0.4747292418772563,
+   "nat_pnl_mean_filled_days": -0.6716349809884371,
+   "nat_pnl_mean_missed_days": -1.0432989690721601
+  },
+  "DL@10:03|R0": {
+   "submitted": 425,
+   "fill_rate": 0.35058823529411764,
+   "nat_pnl_mean_filled_days": 2.7712751677852485,
+   "nat_pnl_mean_missed_days": 1.4480434782608698
+  },
+  "DL@10:03|R1": {
+   "submitted": 416,
+   "fill_rate": 0.5024038461538461,
+   "nat_pnl_mean_filled_days": -10.217799043062076,
+   "nat_pnl_mean_missed_days": 2.3985024154589643
+  },
+  "DL@10:03|R2-A": {
+   "submitted": 425,
+   "fill_rate": 0.35058823529411764,
+   "nat_pnl_mean_filled_days": 2.7712751677852485,
+   "nat_pnl_mean_missed_days": 1.4480434782608698
+  },
+  "DL@10:03|R2-B": {
+   "submitted": 327,
+   "fill_rate": 0.3853211009174312,
+   "nat_pnl_mean_filled_days": 2.2436507936508097,
+   "nat_pnl_mean_missed_days": 1.6658208955223879
+  },
+  "DL@10:03|R3": {
+   "submitted": 540,
+   "fill_rate": 0.4759259259259259,
+   "nat_pnl_mean_filled_days": -2.7505836575874394,
+   "nat_pnl_mean_missed_days": 2.4454063604240552
+  },
+  "DL@10:05|R0": {
+   "submitted": 431,
+   "fill_rate": 0.3689095127610209,
+   "nat_pnl_mean_filled_days": -0.09899371069180107,
+   "nat_pnl_mean_missed_days": 0.3274632352941529
+  },
+  "DL@10:05|R1": {
+   "submitted": 426,
+   "fill_rate": 0.4812206572769953,
+   "nat_pnl_mean_filled_days": -12.832878048780374,
+   "nat_pnl_mean_missed_days": 1.0000452488688605
+  },
+  "DL@10:05|R2-A": {
+   "submitted": 431,
+   "fill_rate": 0.3689095127610209,
+   "nat_pnl_mean_filled_days": -0.09899371069180107,
+   "nat_pnl_mean_missed_days": 0.3274632352941529
+  },
+  "DL@10:05|R2-B": {
+   "submitted": 345,
+   "fill_rate": 0.39420289855072466,
+   "nat_pnl_mean_filled_days": -1.0710294117646797,
+   "nat_pnl_mean_missed_days": 0.09583732057420834
+  },
+  "DL@10:05|R3": {
+   "submitted": 537,
+   "fill_rate": 0.48044692737430167,
+   "nat_pnl_mean_filled_days": -5.053217054263452,
+   "nat_pnl_mean_missed_days": 1.8371684587814197
+  }
+ },
+ "tail_by_delta": {
+  "R0": {
+   "5D": {
+    "trades": 285,
+    "pnl": 345.5500000000131,
+    "worst": -494.39,
+    "mean": 1.212456140350923,
+    "loss_rate": 0.014035087719298246
+   }
+  },
+  "R1": {
+   "5D": {
+    "trades": 219,
+    "pnl": -19.309999999986786,
+    "worst": -494.39,
+    "mean": -0.08817351598167482,
+    "loss_rate": 0.0182648401826484
+   },
+   "10D": {
+    "trades": 123,
+    "pnl": -563.5699999999797,
+    "worst": -424.1399999999915,
+    "mean": -4.581869918699022,
+    "loss_rate": 0.07317073170731707
+   },
+   "15D": {
+    "trades": 13,
+    "pnl": -439.36999999999654,
+    "worst": -483.24,
+    "mean": -33.79769230769204,
+    "loss_rate": 0.23076923076923078
+   },
+   "20D": {
+    "trades": 5,
+    "pnl": -47.39999999999995,
+    "worst": -153.83999999999995,
+    "mean": -9.47999999999999,
+    "loss_rate": 0.2
+   },
+   "25D": {
+    "trades": 3,
+    "pnl": -433.72,
+    "worst": -479.24,
+    "mean": -144.57333333333335,
+    "loss_rate": 0.3333333333333333
+   },
+   "30D": {
+    "trades": 1,
+    "pnl": 41.61,
+    "worst": 41.61,
+    "mean": 41.61,
+    "loss_rate": 0.0
+   },
+   "45D": {
+    "trades": 3,
+    "pnl": -670.6199999999944,
+    "worst": -461.53999999999996,
+    "mean": -223.53999999999814,
+    "loss_rate": 0.6666666666666666
+   }
+  },
+  "R3": {
+   "5D": {
+    "trades": 247,
+    "pnl": 127.17000000001315,
+    "worst": -494.39,
+    "mean": 0.5148582995951949,
+    "loss_rate": 0.016194331983805668
+   },
+   "10D": {
+    "trades": 166,
+    "pnl": -361.7899999999755,
+    "worst": -424.1399999999915,
+    "mean": -2.179457831325154,
+    "loss_rate": 0.06626506024096386
+   },
+   "15D": {
+    "trades": 36,
+    "pnl": -258.5399999999907,
+    "worst": -483.24,
+    "mean": -7.181666666666408,
+    "loss_rate": 0.1388888888888889
+   }
+  },
+  "R2-A": {
+   "5D": {
+    "trades": 285,
+    "pnl": 345.5500000000131,
+    "worst": -494.39,
+    "mean": 1.212456140350923,
+    "loss_rate": 0.014035087719298246
+   }
+  }
+ },
+ "adverse_moves": {
+  "close_move_p05": -0.00996870114506042,
+  "close_move_p01": -0.018999194590395778,
+  "intraday_low_p05": -0.013687932402059155,
+  "intraday_low_p01": -0.021746397271893727,
+  "worst_close_move": -0.04937440653469649,
+  "n_days": 903,
+  "R0": {
+   "median_otm_pct": 0.014299409929920737,
+   "breach_rate": 0.017543859649122806,
+   "move_over_distance_p95": 0.7225245242392776,
+   "move_over_distance_p99": 1.134941921887894,
+   "full_loss_rate": 0.010526315789473684
+  },
+  "R1": {
+   "median_otm_pct": 0.011820323814222156,
+   "breach_rate": 0.06267029972752043,
+   "move_over_distance_p95": 1.0384787322977964,
+   "move_over_distance_p99": 2.4924208393476355,
+   "full_loss_rate": 0.027247956403269755
+  },
+  "R3": {
+   "median_otm_pct": 0.011585514056550283,
+   "breach_rate": 0.0556792873051225,
+   "move_over_distance_p95": 1.0176976156536117,
+   "move_over_distance_p99": 1.7401674512199485,
+   "full_loss_rate": 0.015590200445434299
+  },
+  "R2-A": {
+   "median_otm_pct": 0.014299409929920737,
+   "breach_rate": 0.017543859649122806,
+   "move_over_distance_p95": 0.7225245242392776,
+   "move_over_distance_p99": 1.134941921887894,
+   "full_loss_rate": 0.010526315789473684
+  }
+ }
+}
