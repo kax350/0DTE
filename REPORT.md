@@ -1,3 +1,5 @@
+> **Update (V3, 2026-10-01):** a 72-variant structure search (entry time × delta × put/call/condor × hold/stop) found no tradable version either. See `REPORT_V3.md`.
+
 # REPORT — Wysocki (2026) "Harvesting the VRP: a Learning-to-Rank approach" — replication, audit and $25k retailization
 
 Branch `claude/funny-sagan-gliw0b`.

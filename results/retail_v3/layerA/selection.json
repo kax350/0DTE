@@ -1,0 +1,32 @@
+{
+ "XSP": {
+  "n_days": 1227,
+  "pbo": {
+   "pbo": 0.003418803418803419,
+   "n_splits": 12870,
+   "median_logit": 3.56953269648137
+  },
+  "white_rc": {
+   "p_value": 0.9915,
+   "best": "15:00|0.15|PS|HOLD",
+   "best_mean": 0.5433985330074576
+  }
+ },
+ "SPXW": {
+  "n_days": 1267,
+  "pbo": {
+   "pbo": 0.00675990675990676,
+   "n_splits": 12870,
+   "median_logit": 3.56953269648137
+  },
+  "white_rc": {
+   "p_value": 1.0,
+   "best": "15:00|0.05|PS|HOLD",
+   "best_mean": 0.3517916337806415
+  }
+ },
+ "eligible_xsp": [],
+ "candidates": [],
+ "shadow_only": [],
+ "n_trials_total": 2246
+}
