@@ -1,0 +1,10 @@
+# Python 3.11 (versions used in the original environment)
+numpy==2.4.6
+pandas==3.0.6
+pyarrow==25.0.1
+scipy==1.17.1
+lightgbm==4.7.0
+optuna==5.0.0
+exchange_calendars==4.13.2
+databento==0.87.0
+pytest
