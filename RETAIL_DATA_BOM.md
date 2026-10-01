@@ -33,7 +33,13 @@ Scope: what a $25k retail account needs **live**, every trading day, to run each
 | B2-EDGE, R4 (FHS edge) | + D7–D9 | same as R0 | needs a small daily SPX-minute job |
 | R1 / R2 / R3 (LambdaRank ML) | + D10–D14 | **≈ $35–$205** + $15–30/year | a surface snapshot of hundreds of contracts at 09:35/10:00; the main extra cost and failure point |
 
-**Implication.** At an expected $5–10 net per trade (to be confirmed by V2), an ML product's data bill alone ($35–$205/month) can exceed the strategy's expected monthly P&L at 1 lot. The data cost is weighed against incremental alpha in §11 of the pre-registration.
+**Implication (confirmed by the 2023–26 confirmatory run).**
+
+- **Earnings:** the product the frozen procedure selected (XSP R0, 1 lot) earned **≈ $93/year**. The best non-ML gate (B2-EDGE) earned ≈ $172/year.
+- **Simple rules:** a $1.50–$5/month data bill ($18–60/year) consumes **20–65%** of that.
+- **ML rules:** a $35–$205/month bill would consume the whole P&L many times over. The ML rules lost money anyway (R1 −$2,132, R3 −$493).
+
+So even the cheapest data stack does not leave an economically meaningful edge at $25k.
 
 ## 3. Minimising production data
 
