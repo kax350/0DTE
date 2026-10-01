@@ -203,7 +203,32 @@ The two non-ML gates that looked best in 2023–26 **lost money in 2021–22**.
 
 - **R0:** critical tests fail (K1, K4, K5, K25); 62% of the non-critical tests survive.
 - **R1 and R3:** fail essentially every test.
-- **ML-only retrains** (K15, K19–K22 and the §11 ablation): run on the confirmatory windows (ledger #30). They are N/A for the verdict because the selected product is non-ML. Results are in `results/retail_v2/conf/model_*`.
+- **ML-only retrains** (K15, K19–K22 and the §11 ablation): run on the confirmatory windows (ledger #30); results in the table below and `results/retail_v2/conf/model_*`. **R1 and R3 fail all of them. R2-A/R2-B "survive" only because they mostly reproduce R0.** None of this enters the verdict, because the selected product is non-ML.
+
+**ML robustness retrains** (K15, K19–K22) and the **feature ablation (§11)**:
+
+- **Setup:** confirmatory windows only. G-UNION gate calibration uses WF3–WF4 as the prior test years, because WF1/WF2 variant models were not fitted (ledger #30–#31).
+- **Metric:** XSP primary total P&L 2023-01 → 2026-09; R0 = +$346.
+
+| Model | R1 | R2-A | R2-B | R3 |
+|---|---|---|---|---|
+| Full (main) | −$2,132 | +$346 (≡ R0) | +$135 | −$493 |
+| K15 corr 0.80 / 0.90 | −$306 / −$1,966 | +$335 / +$346 | +$579 / +$641 | −$1,100 / −$1,871 |
+| K19 rolling 3-year | −$1,850 | +$346 | +$385 | −$1,021 |
+| K20 seed + 1 | −$1,815 | +$346 | +$437 | −$2,621 |
+| K21 no macro | −$456 | +$346 | +$394 | −$1,065 |
+| K22 / §11 top-20 | −$544 | +$346 | +$226 | −$345 |
+| §11 top-10 | +$42 | +$346 | +$338 | −$1,002 |
+| §11 top-5 | +$131 | +$346 | −$22 | −$705 |
+| 2026 Test A (frozen OOT model) | −$1,916 | +$346 | +$150 | −$404 |
+
+Reading the table:
+
+- **R1 and R3** are below R0 in every variant.
+- **R2-A** is identical to R0 in almost every variant: the ranker never puts SKIP above 5Δ.
+- **R2-B** beats R0 in 5 of 9 model variants. The margin is +$39 to +$295 over 3.7 years, paired P ≤ 0.64, and it is negative in the main model. That is noise, not an edge.
+- **Simpler models lose less.** The smaller the feature set, the closer the model gets to always-5Δ. Top-5 needs only the 0DTE chain, SPX and VIX, but is still below R0.
+- **Model size:** the fitted models are tiny (best iteration 1–26 trees).
 
 **PSR / DSR (XSP, primary, n_trials = 1,619):**
 

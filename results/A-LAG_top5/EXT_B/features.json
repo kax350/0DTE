@@ -1,0 +1,7 @@
+[
+ "vega",
+ "iv_at_strike_minus_atmf",
+ "iv_at_strike_minus_atmf_wd_rank",
+ "theta",
+ "entry_bid_ask_spread_pct"
+]

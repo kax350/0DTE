@@ -1,0 +1,12 @@
+[
+ "vega",
+ "iv_at_strike_minus_atmf",
+ "iv_at_strike_minus_atmf_wd_rank",
+ "theta",
+ "entry_bid_ask_spread_pct",
+ "morning_vix_change",
+ "gamma_x_morning_spx_rv_annualized",
+ "VIX_21d_pct_change",
+ "vix_z_60d",
+ "rom_roll_std_30d"
+]

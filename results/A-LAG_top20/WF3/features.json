@@ -1,0 +1,22 @@
+[
+ "delta",
+ "vega",
+ "gamma_x_morning_spx_rv_annualized",
+ "morning_spx_rv_annualized",
+ "VIX_21d_pct_change",
+ "morning_vix_change",
+ "vix_z_60d",
+ "theta_x_atmf_iv_5dte_percentile_252d",
+ "iv_term_slope_5d_30d",
+ "atmf_iv_30dte_intraday_pct_change",
+ "leverage",
+ "VIX_VIX9D_ratio",
+ "days_until_next_pce",
+ "atmf_iv_10dte_intraday_range",
+ "spx_1d_returns",
+ "atmf_iv_1dte_percentile_252d",
+ "spx_252d_rv",
+ "atmf_iv_5dte_percentile_252d",
+ "effr_rate_1y_pct_change",
+ "entry_bid_ask_spread"
+]

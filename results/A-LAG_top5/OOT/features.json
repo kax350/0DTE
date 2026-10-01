@@ -1,0 +1,7 @@
+[
+ "theta",
+ "vega",
+ "entry_bid_ask_spread_pct",
+ "iv_to_spot_change_ratio_1dte_close",
+ "rom_roll_std_30d"
+]

@@ -1,0 +1,22 @@
+[
+ "vega",
+ "gamma_x_morning_spx_rv_annualized",
+ "theta",
+ "jobless_claims",
+ "VIX_21d_pct_change",
+ "rom_roll_skew_30d",
+ "morning_spx_log_return",
+ "atmf_iv_10dte_intraday_range",
+ "morning_spx_rv_annualized",
+ "vix_z_60d",
+ "morning_vix_change",
+ "morning_atmf_iv_pct_change",
+ "leverage",
+ "morning_spx_range_pct",
+ "spx_1d_returns",
+ "iv_at_strike_minus_atmf_x_VIX_VIX9D_spread",
+ "front_roll_yield",
+ "VIX_5d_pct_change",
+ "atmf_iv_30dte_intraday_pct_change",
+ "iv_term_slope_5d_30d"
+]

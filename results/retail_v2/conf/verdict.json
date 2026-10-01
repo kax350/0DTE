@@ -694,39 +694,39 @@
     },
     "K15": {
      "value": [
-      null,
-      null
+      -306.43,
+      -1966.4
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K19": {
      "value": [
-      null
+      -1849.83
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K20": {
      "value": [
-      null
+      -1815.16
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K21": {
      "value": [
-      null
+      -456.3
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K22": {
      "value": [
-      null
+      -543.9
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K23": {
      "value": -2477.9299999999707,
@@ -739,7 +739,7 @@
    },
    "critical_all": false,
    "noncritical_frac": 0.0,
-   "noncritical_n": 10
+   "noncritical_n": 15
   },
   "R2-A": {
    "tests": {
@@ -827,39 +827,39 @@
     },
     "K15": {
      "value": [
-      null,
-      null
+      335.18,
+      345.55
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K19": {
      "value": [
-      null
+      345.55
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K20": {
      "value": [
-      null
+      345.55
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K21": {
      "value": [
-      null
+      345.55
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K22": {
      "value": [
-      null
+      345.55
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K23": {
      "value": 0.0,
@@ -872,8 +872,8 @@
     }
    },
    "critical_all": false,
-   "noncritical_frac": 0.5555555555555556,
-   "noncritical_n": 9
+   "noncritical_frac": 0.7142857142857143,
+   "noncritical_n": 14
   },
   "R2-B": {
    "tests": {
@@ -961,39 +961,39 @@
     },
     "K15": {
      "value": [
-      null,
-      null
+      579.17,
+      640.61
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K19": {
      "value": [
-      null
+      384.75
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K20": {
      "value": [
-      null
+      436.51
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K21": {
      "value": [
-      null
+      394.47
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K22": {
      "value": [
-      null
+      225.74
      ],
-     "survive": null,
-     "applicable": false
+     "survive": true,
+     "applicable": true
     },
     "K23": {
      "value": -210.09000000000015,
@@ -1006,8 +1006,8 @@
     }
    },
    "critical_all": false,
-   "noncritical_frac": 0.5555555555555556,
-   "noncritical_n": 9
+   "noncritical_frac": 0.7142857142857143,
+   "noncritical_n": 14
   },
   "R3": {
    "tests": {
@@ -1095,39 +1095,39 @@
     },
     "K15": {
      "value": [
-      null,
-      null
+      -1099.74,
+      -1871.12
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K19": {
      "value": [
-      null
+      -1021.04
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K20": {
      "value": [
-      null
+      -2620.7199999999
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K21": {
      "value": [
-      null
+      -1064.78
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K22": {
      "value": [
-      null
+      -345.21
      ],
-     "survive": null,
-     "applicable": false
+     "survive": false,
+     "applicable": true
     },
     "K23": {
      "value": -838.7099999999664,
@@ -1140,7 +1140,7 @@
    },
    "critical_all": false,
    "noncritical_frac": 0.0,
-   "noncritical_n": 10
+   "noncritical_n": 15
   },
   "R4-1.0": {
    "tests": {

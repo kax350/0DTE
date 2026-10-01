@@ -1,0 +1,12 @@
+[
+ "delta",
+ "vega",
+ "gamma_x_morning_spx_rv_annualized",
+ "morning_spx_rv_annualized",
+ "VIX_21d_pct_change",
+ "morning_vix_change",
+ "vix_z_60d",
+ "theta_x_atmf_iv_5dte_percentile_252d",
+ "iv_term_slope_5d_30d",
+ "atmf_iv_30dte_intraday_pct_change"
+]

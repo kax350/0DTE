@@ -1,0 +1,22 @@
+[
+ "theta",
+ "vega",
+ "entry_bid_ask_spread_pct",
+ "iv_to_spot_change_ratio_1dte_close",
+ "rom_roll_std_30d",
+ "theta_x_atmf_iv_5dte_percentile_252d",
+ "entry_bid_ask_spread",
+ "leverage",
+ "vega_x_VIX_5d_pct_change",
+ "spx_10d_returns",
+ "gamma_x_morning_spx_rv_annualized",
+ "morning_spx_log_return",
+ "atmf_iv_10dte_intraday_range",
+ "jobless_claims",
+ "iv_at_strike_minus_atmf_x_VIX_VIX9D_spread",
+ "iv_term_slope_5d_30d",
+ "morning_vix_change",
+ "prior_day_strategy_drawdown_max_5d",
+ "vix_z_60d",
+ "rom_roll_skew_30d"
+]

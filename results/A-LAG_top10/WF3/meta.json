@@ -1,0 +1,116 @@
+{
+ "window": "WF3",
+ "policy": "A-LAG",
+ "thresholds": [
+  -0.6895660011716799,
+  0.9297117133161346,
+  1.5212415234927963,
+  3.0810702694833787
+ ],
+ "skip_in_grade1": true,
+ "selection": {
+  "topk": 10,
+  "src": "/home/user/0DTE/results/A-LAG/WF3"
+ },
+ "tuning": {
+  "best_params": {
+   "num_leaves": 21,
+   "learning_rate": 0.013739483562291778,
+   "min_data_in_leaf": 41,
+   "feature_fraction": 0.7132829272715594,
+   "bagging_fraction": 0.5062707093592032,
+   "bagging_freq": 10,
+   "lambda_l1": 6.33829843985877,
+   "lambda_l2": 0.0020924486445268536
+  },
+  "best_ndcg1_search": 0.8398412698412698,
+  "best_iteration": 2
+ },
+ "gate": {
+  "tau": 0.0027263681855377725,
+  "rate": 0.3,
+  "table": [
+   {
+    "rate": 1.0,
+    "tau": 0.0,
+    "sortino": 0.14942560839664537,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.9,
+    "tau": 0.0,
+    "sortino": 0.14942560839664537,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.8,
+    "tau": 0.0,
+    "sortino": 0.14942560839664537,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.7,
+    "tau": 0.0,
+    "sortino": 0.14942560839664537,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.6,
+    "tau": 0.0,
+    "sortino": 0.14942560839664537,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.5,
+    "tau": 0.0,
+    "sortino": 0.14942560839664537,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.4,
+    "tau": 0.0,
+    "sortino": 0.14942560839664537,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.3,
+    "tau": 0.0027263681855377725,
+    "sortino": 1.808897506808955,
+    "realized_rate": 0.3333333333333333
+   }
+  ]
+ },
+ "n_train_days": 1218,
+ "slices": {
+  "ranker": [
+   "2018-01-02",
+   "2022-06-30",
+   1095
+  ],
+  "gate": [
+   "2022-07-01",
+   "2022-12-30",
+   123
+  ],
+  "search_train": [
+   "2018-01-02",
+   "2021-12-31",
+   975
+  ],
+  "search_val": [
+   "2022-01-03",
+   "2022-06-30",
+   120
+  ],
+  "final_train": [
+   "2018-01-02",
+   "2022-03-31",
+   1035
+  ],
+  "final_es": [
+   "2022-04-01",
+   "2022-06-30",
+   60
+  ]
+ }
+}

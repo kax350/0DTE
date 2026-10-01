@@ -1,0 +1,12 @@
+[
+ "theta",
+ "vega",
+ "entry_bid_ask_spread_pct",
+ "iv_to_spot_change_ratio_1dte_close",
+ "rom_roll_std_30d",
+ "theta_x_atmf_iv_5dte_percentile_252d",
+ "entry_bid_ask_spread",
+ "leverage",
+ "vega_x_VIX_5d_pct_change",
+ "spx_10d_returns"
+]

@@ -1,0 +1,119 @@
+{
+ "window": "WF3",
+ "policy": "A-LAG",
+ "thresholds": [
+  -0.771144399471095,
+  0.9245485128946564,
+  1.5381567165327472,
+  3.314707931057956
+ ],
+ "skip_in_grade1": true,
+ "selection": {
+  "S1": 184,
+  "S2": 184,
+  "S3": 69,
+  "S4": 42,
+  "S5": 38
+ },
+ "tuning": {
+  "best_params": {
+   "num_leaves": 241,
+   "learning_rate": 0.02546274878501382,
+   "min_data_in_leaf": 35,
+   "feature_fraction": 0.9560798305383418,
+   "bagging_fraction": 0.9488473821452303,
+   "bagging_freq": 5,
+   "lambda_l1": 0.7156932308112759,
+   "lambda_l2": 3.44104674033345
+  },
+  "best_ndcg1_search": 0.841031746031746,
+  "best_iteration": 1
+ },
+ "gate": {
+  "tau": 0.0,
+  "rate": 1.0,
+  "table": [
+   {
+    "rate": 1.0,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.9,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.8,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.7,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.6,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.5,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.4,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.3,
+    "tau": 0.0,
+    "sortino": 0.08808067501925193,
+    "realized_rate": 1.0
+   }
+  ]
+ },
+ "n_train_days": 732,
+ "slices": {
+  "ranker": [
+   "2020-01-02",
+   "2022-06-30",
+   609
+  ],
+  "gate": [
+   "2022-07-01",
+   "2022-12-30",
+   123
+  ],
+  "search_train": [
+   "2020-01-02",
+   "2021-12-31",
+   489
+  ],
+  "search_val": [
+   "2022-01-03",
+   "2022-06-30",
+   120
+  ],
+  "final_train": [
+   "2020-01-02",
+   "2022-03-31",
+   549
+  ],
+  "final_es": [
+   "2022-04-01",
+   "2022-06-30",
+   60
+  ]
+ }
+}
