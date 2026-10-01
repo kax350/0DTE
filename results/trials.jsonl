@@ -702,3 +702,17 @@
 {"t": "2026-10-01T01:56:38", "variant": "SPXW|1lot|A-LAG|G-UNION|extA|B-FIX-BESTTRAIN|L2_1005", "period": "2021-2026", "preregistered": true, "note": ""}
 {"t": "2026-10-01T01:56:38", "variant": "SPXW|1lot|A-LAG|G-UNION|extA|B-FIX-BESTTRAIN|L3_1005", "period": "2021-2026", "preregistered": true, "note": ""}
 {"t": "2026-10-01T01:56:38", "variant": "SPXW|1lot|A-LAG|G-UNION|extA|B-FIX-BESTTRAIN|DOUBLE", "period": "2021-2026", "preregistered": true, "note": ""}
+{"t": "2026-10-01T01:59:11", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|EA", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T01:59:20", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|FMU", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T01:59:28", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|SRS", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T01:59:36", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|VT", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T01:59:42", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|GB", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T01:59:47", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|HK", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T01:59:52", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|QK", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T02:01:13", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|EA", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T02:01:23", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|FMU", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T02:01:32", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|SRS", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T02:01:41", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|VT", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T02:01:48", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|GB", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T02:01:54", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|HK", "period": "2021-2025", "preregistered": true, "note": ""}
+{"t": "2026-10-01T02:02:00", "variant": "SPXW|paper-sizing|P-LAG|G-UNION|QK", "period": "2021-2025", "preregistered": true, "note": ""}

@@ -28,6 +28,7 @@ Times America/New_York. Each entry: what changed, why, and whether any out-of-sa
 | 21 | 21:26 | SPXW 2017–2021 complete. **WF1 started (P-LAG, then A-LAG): first time any walk-forward (2021) outcome is computed.** All rules are as pre-registered; nothing is changed after this point except via logged amendments. | **from here: 2021** |
 | 22 | 21:35 | WF1 (2021) one-contract results computed for both policies (`results/*/one_contract_G-UNION_extA.csv`). LightGBM "[Fatal] feature_pre_filter" log lines are benign: LightGBM rebuilds the Dataset from retained raw data when min_data_in_leaf drops. | 2021 |
 | 23 | 21:40 | **Leak test (R4), `scripts/leak_test.py` → `docs/leak_test.json`:** on days where yesterday's 1-DTE trade settles at today's close (423 of 1,218 days, 2017–2021), the paper-literal lag gives day-mean ROM vs same-day P&L Spearman **+0.302 (p = 2e-10)**. Normal days: −0.129. Availability-correct lag on the same days: −0.062 (p = 0.21). The literal rule leaks same-day information. | 2021 (diagnostic) |
+| 24 | 22:00 | WF2 (2022) done for both policies. Paper-sizing replication ($5M, 7 methods) run on WF1–WF2: θ* pins at the top of the grid, as in the paper. **Bug fix:** HK/QK used a 0.0 placeholder for the rolling Kelly fraction, so they made no trades. It was replaced by the PAPER_SPEC formula (trailing-252 μ/σ² of return on margin on settled picks). This is an implementation fix with no discretionary choice; it was made after viewing the WF1–2 sizing output of the other methods. | 2021–2022 |
 
 ## Spend log (Databento, USD)
 

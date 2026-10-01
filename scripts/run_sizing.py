@@ -56,6 +56,30 @@ def intraday_inputs(days):
     return out
 
 
+def rolling_kelly(picks: pd.Series, cands: pd.DataFrame, window: int = 252) -> dict:
+    """f*_t = mean/var of per-trade return on margin r_c = net_L1 / RegT margin over the trailing
+    252 sessions of the strategy's own picks, using only trades settled before t (eq:ck)."""
+    from vrp_ltr.execution import regt_short_put_margin
+    t = cands.set_index(["date", "strategy"])
+    rows = []
+    for d, s in picks.items():
+        if s is None or s == SKIP or (d, s) not in t.index:
+            continue
+        r = t.loc[(d, s)]
+        if not np.isfinite(r["net_L1"]):
+            continue
+        M_ = regt_short_put_margin(r["mid"], r["spot"], r["strike"])
+        rows.append((d, r["outcome_settle_day"], r["net_L1"] / M_))
+    h = pd.DataFrame(rows, columns=["d", "settle", "rc"])
+    out = {}
+    days = sorted(picks.index)
+    for i, d in enumerate(days):
+        lo = days[max(0, i - window)]
+        x = h[(h["settle"] < d) & (h["d"] >= lo)]["rc"]
+        out[d] = float(x.mean() / x.var()) if len(x) >= 20 and x.var() > 0 else 0.0
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--policy", default="P-LAG")
@@ -97,10 +121,16 @@ def main():
                 return out
             ptr = pd.read_parquet(wd / "picks_train.parquet")["pick"]
             ptr = ptr[[d in set(tr_days) for d in ptr.index]]
-            xtr = dx(list(ptr.index))
-            theta, vol = calibrate_theta(ptr, cands, xtr, method, PAPER_NAV0)
             pt = picks[[d.year == yt for d in picks.index]]
-            nav_df = sized_nav(pt, cands, dx(list(pt.index)), method, theta, nav)
+            kelly = rolling_kelly(pd.concat([ptr, pt]).sort_index(), cands)
+            xtr = dx(list(ptr.index))
+            for d in xtr:
+                xtr[d]["kelly_f"] = kelly.get(d, 0.0)
+            theta, vol = calibrate_theta(ptr, cands, xtr, method, PAPER_NAV0)
+            xt = dx(list(pt.index))
+            for d in xt:
+                xt[d]["kelly_f"] = kelly.get(d, 0.0)
+            nav_df = sized_nav(pt, cands, xt, method, theta, nav)
             nav = nav + nav_df["pnl"].sum()
             nav_df["window"], nav_df["theta"], nav_df["train_vol"] = w, theta, vol
             pieces.append(nav_df)
