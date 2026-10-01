@@ -294,6 +294,8 @@ def run_day(day, target, cfg: Cfg, ctx: Ctx, rp_spxw=None, rp=None) -> dict:
             debit = max(ks - S, 0.0) - max(kl - S, 0.0)
             f_exit = 0.0
         pnl = 100 * n * (c - debit) - f_entry - f_exit
+        if not np.isfinite(pnl):  # no exit quote and no closing spot: book the maximum loss (conservative)
+            pnl, rec["exit_note"] = -ml, "exit-data-missing-assumed-max-loss"
         rec.update(exit_debit=debit, fees_exit=f_exit,
                    assign_risk=int(S59 is not None and np.isfinite(S59) and kl < S59 < ks))
     else:

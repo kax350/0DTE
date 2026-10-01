@@ -64,8 +64,9 @@ def one(args):
     quotes = pd.concat(rows, ignore_index=True)
     quotes = quotes[(quotes["ask"] > 0) & (quotes["bid"] >= 0) & (quotes["ask"] > quotes["bid"])]
     spot_1559 = None
-    if root == "SPY":
-        t59 = pd.Timestamp(f"{e0} 15:59", tz="America/New_York")
+    if root == "SPY":  # closing spot = parity at the session's last minute (15:59; 12:59 on early closes)
+        from vrp_ltr.calendar import session_bounds
+        t59 = pd.Timestamp(session_bounds(e0)[1]).tz_convert("America/New_York") - pd.Timedelta(minutes=1)
         spot_1559 = parity_spot(q[q["ts"] == t59], e0, r, 1e-6, S, n=5)
         settle = spot_1559
     else:
