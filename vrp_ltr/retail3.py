@@ -53,9 +53,11 @@ class Chain:
             x = q[q["right"] == right]
             if x.empty:
                 continue
-            b = x.pivot_table(index="m", columns="strike", values="bid", aggfunc="last").reindex(self.mins)
-            a = x.pivot_table(index="m", columns="strike", values="ask", aggfunc="last").reindex(self.mins)
-            K = b.columns.values.astype(float)
+            ks = np.sort(x["strike"].astype(float).unique())
+            b = x.pivot_table(index="m", columns="strike", values="bid", aggfunc="last", dropna=False)
+            a = x.pivot_table(index="m", columns="strike", values="ask", aggfunc="last", dropna=False)
+            b, a = b.reindex(index=self.mins, columns=ks), a.reindex(index=self.mins, columns=ks)
+            K = ks
             B, A = b.values.astype(float), a.values.astype(float)
             bad = ~((A > 0) & (B >= 0) & (A > B))
             B[bad], A[bad] = np.nan, np.nan
