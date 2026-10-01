@@ -1,0 +1,36 @@
+{
+ "train_best_bucket": {
+  "2021": "P05",
+  "2022": "P05",
+  "2023": "P05",
+  "2024": "P05",
+  "2025": "P05",
+  "2026": "P05"
+ },
+ "verdict": {
+  "L1": {
+   "wf_mean_diff": 21.204918032786946,
+   "wf_boot_p_gt0": 0.7443,
+   "oot2025_mean_diff": null,
+   "pass": false
+  },
+  "L2": {
+   "wf_mean_diff": 16.51229508196727,
+   "wf_boot_p_gt0": 0.697,
+   "oot2025_mean_diff": null,
+   "pass": false
+  },
+  "L3": {
+   "wf_mean_diff": 15.354180327868912,
+   "wf_boot_p_gt0": 0.683,
+   "oot2025_mean_diff": null,
+   "pass": false
+  },
+  "L3_1003": {
+   "wf_mean_diff": 16.53741803278694,
+   "wf_boot_p_gt0": 0.6969,
+   "oot2025_mean_diff": null,
+   "pass": false
+  }
+ }
+}

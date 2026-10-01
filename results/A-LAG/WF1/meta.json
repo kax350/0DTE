@@ -1,0 +1,119 @@
+{
+ "window": "WF1",
+ "policy": "A-LAG",
+ "thresholds": [
+  -0.5630741498642868,
+  0.9184979066822561,
+  1.4999999250000033,
+  2.8306075803968125
+ ],
+ "skip_in_grade1": true,
+ "selection": {
+  "S1": 183,
+  "S2": 183,
+  "S3": 107,
+  "S4": 46,
+  "S5": 36
+ },
+ "tuning": {
+  "best_params": {
+   "num_leaves": 25,
+   "learning_rate": 0.020529152871213593,
+   "min_data_in_leaf": 80,
+   "feature_fraction": 0.9191849535141264,
+   "bagging_fraction": 0.6272551304791251,
+   "bagging_freq": 10,
+   "lambda_l1": 0.2031395699918664,
+   "lambda_l2": 6.975126473925867
+  },
+  "best_ndcg1_search": 0.8754820936639118,
+  "best_iteration": 1
+ },
+ "gate": {
+  "tau": 0.0,
+  "rate": 1.0,
+  "table": [
+   {
+    "rate": 1.0,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.9,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.8,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.7,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.6,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.5,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.4,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.3,
+    "tau": 0.0,
+    "sortino": 0.07421333429129957,
+    "realized_rate": 1.0
+   }
+  ]
+ },
+ "n_train_days": 731,
+ "slices": {
+  "ranker": [
+   "2018-01-02",
+   "2020-06-30",
+   607
+  ],
+  "gate": [
+   "2020-07-01",
+   "2020-12-31",
+   124
+  ],
+  "search_train": [
+   "2018-01-02",
+   "2019-12-31",
+   486
+  ],
+  "search_val": [
+   "2020-01-02",
+   "2020-06-30",
+   121
+  ],
+  "final_train": [
+   "2018-01-02",
+   "2020-03-31",
+   546
+  ],
+  "final_es": [
+   "2020-04-01",
+   "2020-06-30",
+   61
+  ]
+ }
+}
