@@ -154,19 +154,22 @@ def main():
     ap.add_argument("--period", default="dev", choices=list(PERIODS))
     ap.add_argument("--products", default="XSP,SPY,SPXW")
     ap.add_argument("--quick", action="store_true", help="primary configuration only")
+    ap.add_argument("--policy", default="A-LAG", help="model directory (A-LAG, A-LAG_corr080, ...)")
+    ap.add_argument("--ext", default="B", help="2026 model: B = EXT_B retrain (primary), A = frozen OOT")
+    ap.add_argument("--label", default="", help="model-variant run: XSP primary, ML rules + R0 only")
     a = ap.parse_args()
     start, end = PERIODS[a.period]
-    out = OUT / a.period
+    out = OUT / a.period / (f"model_{a.label}" if a.label else "")
     (out / "daily").mkdir(parents=True, exist_ok=True)
     ctx = build_ctx()
     alld = [x.date() for x in sessions(start, end)]
-    D = decisions(ctx, alld)
+    D = decisions(ctx, alld, a.policy, a.ext)
     nt = registry.n_trials()
     summary, paired_rows, series = [], [], {}
 
     def go(tag, product, rule, dkey, cfg, days):
         df = RT.run(D[dkey], days, cfg, ctx)
-        registry.record(f"V2|{a.period}|{product}|{tag}|{rule}", a.period)
+        registry.record(f"V2|{a.period}|{a.label or a.policy}|{product}|{tag}|{rule}", a.period)
         series[(product, tag, rule)] = df
         s = RM.summarize(df, cfg.nav0, max(nt, 1))
         summary.append({"product": product, "tag": tag, "rule": rule, **{k: v for k, v in s.items()}})
@@ -178,15 +181,18 @@ def main():
         (out / f"excluded_days_{product}.json").write_text(json.dumps(why, indent=0))
         pb = RT.variant(base, root=product)
         R = rules_cfg(pb)
+        if a.label:
+            R = {k: v for k, v in R.items() if k in ("R0",) + ML_RULES}
         prim = {}
         for rule, (dk, cfg) in R.items():
             prim[rule] = go("PRIMARY", product, rule, dk, cfg, days)
-        go("PRIMARY", product, "R0-SNAP1000", "R0", RT.variant(pb, snap1000=True), days)
+        if not a.label:
+            go("PRIMARY", product, "R0-SNAP1000", "R0", RT.variant(pb, snap1000=True), days)
         for rule in R:
             if rule != "R0":
                 paired_rows.append({"product": product, "tag": "PRIMARY", "rule": rule,
                                     **RM.paired(prim[rule], prim["R0"])})
-        if a.quick or product != "XSP":
+        if a.quick or a.label or product != "XSP":
             continue
         # execution levels (XSP)
         for lvl, t in (("MID", "10:03"), ("STRESS", "10:03"), ("DL", "10:01"), ("DL", "10:03"), ("DL", "10:05")):

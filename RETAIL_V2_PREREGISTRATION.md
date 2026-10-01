@@ -313,7 +313,7 @@ For SPY: the number of days the 15:59 spot fell between K_l and K_s (partial-ass
 
 ## Amendments
 
-**A1 (2026-10-01 ~04:40 ET; made before any 2023+ strategy outcome was computed; ledger #26).**
+**A1 (2026-09-30 23:46 ET = 03:46 UTC 10-01; made before any 2023+ strategy outcome was computed; ledger #26).**
 
 *Trigger.* A data audit of quote quality only (`scripts/quote_quality.py` → `docs/quote_quality_1000.csv`; widths and two-sided counts, no P&L) found that the **XSP NBBO at exactly 10:00:00 is frequently degraded**: $1–2-wide auto-quotes with size 1. Two examples are 2024-09-04 and 2025-03-03, both days with 10:00 ET macro releases. Quotes are normal again by 10:01–10:03. SPXW and SPY show no 10:00 effect. Under the frozen text, the XSP short strike and the CAP width would be chosen from a broken snapshot, which is a data-timing artefact and not a property of the product.
 
