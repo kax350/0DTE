@@ -26,6 +26,8 @@ Times America/New_York. Each entry: what changed, why, and whether any out-of-sa
 | 19 | 19:35 | Code smoke test of `run_window` on a DEV window (train 2017–2018, predict 2019), 5 Optuna trials. **All three years are training-period data for every real window.** Outputs: SKIP-in-grade-1 holds (θ10 = −0.28 < 0 ≤ θ40); S1..S5 = 171/170/107/42/28; gate rate 0.4; early stopping at round 4. Written to scratch only; not a result and not used for any decision. | no |
 | 20 | 21:22 | Data issue: on 2018-12-04 the only listed next-session SPXW expiry was 2018-12-05, an unscheduled market closure (national day of mourning). There is no settlement session for that contract, so the panel is not built and the day is excluded. It is one training-period day. | no |
 | 21 | 21:26 | SPXW 2017–2021 complete. **WF1 started (P-LAG, then A-LAG): first time any walk-forward (2021) outcome is computed.** All rules are as pre-registered; nothing is changed after this point except via logged amendments. | **from here: 2021** |
+| 22 | 21:35 | WF1 (2021) one-contract results computed for both policies (`results/*/one_contract_G-UNION_extA.csv`). LightGBM "[Fatal] feature_pre_filter" log lines are benign: LightGBM rebuilds the Dataset from retained raw data when min_data_in_leaf drops. | 2021 |
+| 23 | 21:40 | **Leak test (R4), `scripts/leak_test.py` → `docs/leak_test.json`:** on days where yesterday's 1-DTE trade settles at today's close (423 of 1,218 days, 2017–2021), the paper-literal lag gives day-mean ROM vs same-day P&L Spearman **+0.302 (p = 2e-10)**. Normal days: −0.129. Availability-correct lag on the same days: −0.062 (p = 0.21). The literal rule leaks same-day information. | 2021 (diagnostic) |
 
 ## Spend log (Databento, USD)
 
