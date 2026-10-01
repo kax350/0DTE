@@ -134,6 +134,52 @@ def tail_tables(ser, rules, period_days=None) -> dict:
     return out
 
 
+def adverse_moves(ser, rules) -> dict:
+    """SPX 10:00->close move distribution over the evaluation days, and per-trade move vs short-strike distance."""
+    from vrp_ltr.data import spx_minute
+    df = spx_minute.load()
+    hm = df["bar_start"].dt.strftime("%H:%M")
+    rth = df[(hm >= "09:30") & (hm < "16:00")]
+    mv = {}
+    for d, g in rth.groupby("date"):
+        v = g["close"].values
+        if len(v) > 60:
+            mv[d] = float(v[-1] / v[29] - 1.0)
+            mv[(d, "min")] = float(v[30:].min() / v[29] - 1.0)
+    base = ser[("XSP", "PRIMARY", "R0")]
+    days = list(base.index)
+    r = np.array([mv.get(d, np.nan) for d in days])
+    lo = np.array([mv.get((d, "min"), np.nan) for d in days])
+    out = {"close_move_p05": float(np.nanquantile(r, 0.05)), "close_move_p01": float(np.nanquantile(r, 0.01)),
+           "intraday_low_p05": float(np.nanquantile(lo, 0.05)), "intraday_low_p01": float(np.nanquantile(lo, 0.01)),
+           "worst_close_move": float(np.nanmin(r)), "n_days": int(np.isfinite(r).sum())}
+    for rule in rules:
+        x = ser.get(("XSP", "PRIMARY", rule))
+        if x is None:
+            continue
+        tr = x[x["traded"] == 1]
+        if not len(tr):
+            continue
+        dist = []
+        for d, row_ in tr.iterrows():
+            rp_spot = None
+            try:
+                from vrp_ltr.retail import load_rp
+                rp_spot = load_rp("XSP", d)["spot10"]
+            except Exception:  # noqa: BLE001
+                pass
+            if rp_spot:
+                dist.append((d, 1 - row_["short_k"] / rp_spot, mv.get(d, np.nan)))
+        dd = pd.DataFrame(dist, columns=["d", "otm", "move"]).dropna()
+        if len(dd):
+            ratio = -dd["move"] / dd["otm"]
+            out[rule] = {"median_otm_pct": float(dd["otm"].median()), "breach_rate": float((ratio > 1).mean()),
+                         "move_over_distance_p95": float(ratio.quantile(0.95)),
+                         "move_over_distance_p99": float(ratio.quantile(0.99)),
+                         "full_loss_rate": float((tr["pnl"] < -0.5 * tr["max_loss"]).mean())}
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--period", default="conf")
@@ -229,7 +275,8 @@ def main():
            "criteria": crit, "spy_validation": {"rule": chosen, "mean_daily_pnl": spy["mean_daily_pnl"] if spy else None,
                                                 "total_pnl": spy["total_pnl"] if spy else None, "ok": spy_ok},
            "verdict": verdict, "kill_tests": kts, "delayed_limit": dl,
-           "tail_by_delta": tail_tables(ser, ["R0", "R1", "R3", "R2-A"])}
+           "tail_by_delta": tail_tables(ser, ["R0", "R1", "R3", "R2-A"]),
+           "adverse_moves": adverse_moves(ser, ["R0", "R1", "R3", "R2-A", chosen])}
     (base_dir / "verdict.json").write_text(json.dumps(res, indent=1, default=str))
     print(json.dumps({k: res[k] for k in ("qualified", "chosen", "verdict", "spy_validation")}, indent=1, default=str))
     print(json.dumps({k: {kk: vv for kk, vv in v.items() if kk in ("P1", "P2", "P2_weak", "P3", "P4", "P5", "P6",

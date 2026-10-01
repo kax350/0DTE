@@ -697,35 +697,35 @@
       null,
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K19": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K20": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K21": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K22": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K23": {
@@ -830,35 +830,35 @@
       null,
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K19": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K20": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K21": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K22": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K23": {
@@ -964,35 +964,35 @@
       null,
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K19": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K20": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K21": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K22": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K23": {
@@ -1098,35 +1098,35 @@
       null,
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K19": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K20": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K21": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K22": {
      "value": [
       null
      ],
-     "survive": false,
+     "survive": null,
      "applicable": false
     },
     "K23": {
@@ -1699,6 +1699,42 @@
     "mean": 5.085000000000023,
     "loss_rate": 0.020833333333333332
    }
+  }
+ },
+ "adverse_moves": {
+  "close_move_p05": -0.016243196040263464,
+  "close_move_p01": -0.02324275690561293,
+  "intraday_low_p05": -0.018988449663026753,
+  "intraday_low_p01": -0.025296493137600733,
+  "worst_close_move": -0.03179118291411376,
+  "n_days": 239,
+  "R0": {
+   "median_otm_pct": 0.020935111252821825,
+   "breach_rate": 0.015151515151515152,
+   "move_over_distance_p95": 0.8166413952096424,
+   "move_over_distance_p99": 0.9897550991494545,
+   "full_loss_rate": 0.0
+  },
+  "R1": {
+   "median_otm_pct": 0.01379356300393153,
+   "breach_rate": 0.06741573033707865,
+   "move_over_distance_p95": 1.1966690753721925,
+   "move_over_distance_p99": 1.9152746333951771,
+   "full_loss_rate": 0.02247191011235955
+  },
+  "R3": {
+   "median_otm_pct": 0.015853524944145436,
+   "breach_rate": 0.039473684210526314,
+   "move_over_distance_p95": 0.9492693617626639,
+   "move_over_distance_p99": 1.579590744716328,
+   "full_loss_rate": 0.013157894736842105
+  },
+  "R2-A": {
+   "median_otm_pct": 0.01704948837828768,
+   "breach_rate": 0.020833333333333332,
+   "move_over_distance_p95": 0.8395511057304915,
+   "move_over_distance_p99": 1.0045695246831872,
+   "full_loss_rate": 0.0
   }
  }
 }

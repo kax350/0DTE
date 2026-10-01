@@ -35,10 +35,10 @@ def missing(root: str, start: str, end: str) -> list:
 
 def main() -> None:
     workers = int(sys.argv[1]) if len(sys.argv) > 1 else 24
-    queue = (missing("SPXW", "2017-01-01", "2021-12-31") + missing("SPXW", "2022-01-01", "2025-12-31")
-             + missing("XSP", "2021-01-01", "2025-12-31") + missing("SPY", "2021-01-01", "2025-12-31")
-             + missing("SPXW", "2026-01-01", "2026-09-29") + missing("XSP", "2026-01-01", "2026-09-29")
-             + missing("SPY", "2026-01-01", "2026-09-29"))
+    # V2 priority: model data (SPXW) -> confirmatory product data (2023-2026) -> development gaps (2021-22)
+    queue = (missing("SPXW", "2017-01-01", "2026-09-29")
+             + missing("XSP", "2023-01-01", "2026-09-29") + missing("SPY", "2023-01-01", "2026-09-29")
+             + missing("XSP", "2021-01-01", "2022-12-31") + missing("SPY", "2021-01-01", "2022-12-31"))
     print("missing", len(queue), flush=True)
     lvl = pd.read_csv(ROOT / "data" / "reference" / "spx_1000.csv")
     lvl = dict(zip(pd.to_datetime(lvl["date"]).dt.date, lvl["spx_1000"]))
