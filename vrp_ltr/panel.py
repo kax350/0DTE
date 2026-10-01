@@ -71,6 +71,8 @@ def load_chain(root: str, day: dt.date) -> pd.DataFrame | None:
     if not f.exists():
         return None
     q = pd.read_parquet(f)
+    if q.empty or "expiration" not in q.columns:  # vendor returned no quotes for the day (DATA GAP)
+        return None
     q["expiration"] = pd.to_datetime(q["expiration"]).dt.date
     return q
 
