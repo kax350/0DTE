@@ -29,8 +29,9 @@ All times are America/New_York. All fills use real Databento OPRA minute NBBO; n
 - 只有 32% 的交易日能下出合格订单。
 - 手续费 ×2、晚 1–2 分钟成交都会变负；SPY 版本 −$2,007。
 
-所有 ML 变体（R1/R2/R3）都不优于固定 5Δ。唯一持续为正的是两个非 ML 的"权利金是否够肥"闸门（B2-EDGE、R4），但它们：
+所有 ML 变体（R1/R2/R3）都不优于固定 5Δ。2023–26 唯一为正的是两个非 ML 的"权利金是否够肥"闸门（B2-EDGE、R4），但它们：
 
+- 在 2021–22 开发期都是亏的（−$105 / −$243）；
 - 每年只赚约 $100–170；
 - 样本里几乎没有亏损，一次满额亏损（−$494）就能抹掉大部分利润；
 - 预注册的配对检验也没有通过。
@@ -160,7 +161,21 @@ Details are in `RETAIL_TAIL_RISK.md` and `RETAIL_PRODUCT_SPEC.md`. Primary confi
 | P6 critical kill tests | **fail** (K1, K4, K5, K25) |
 | SPY | **negative** |
 
-**→ FAIL / NO RETAIL EDGE.** Dev years 2021–22 give the same verdict.
+**→ FAIL / NO RETAIL EDGE.**
+
+**Development years 2021–22** (complete data, same rules; no weight in the verdict) give the same verdict:
+
+| Product | Rule | 2021–22 P&L |
+|---|---|---|
+| XSP | R0 | +$260 (107 trades) |
+| XSP | **B2-EDGE** | **−$105** |
+| XSP | **R4-1.0** | **−$243** |
+| XSP | R1 | −$222 |
+| XSP | R3 | −$306 |
+| SPY | R0 | −$928 |
+| SPXW | R0 | −$2,976 |
+
+The two non-ML gates that looked best in 2023–26 **lost money in 2021–22**.
 
 ## 10. Kill tests
 

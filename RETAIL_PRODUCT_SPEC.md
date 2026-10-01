@@ -76,7 +76,9 @@ These two **non-ML** gates were pre-registered as candidates. They showed positi
 | B2-EDGE | trade only if F̂_{2018..Y−1}((ATMF IV_0DTE,10:00 − σ5·√252) / (σ5·√252)) ≥ 0.50 | 123 | +$638 (≈ $172/yr) | 1 loss (−$59); one full loss would erase 78% |
 | R4-1.0 | trade only if FHS edge ≥ 1.0 × (mid − natural + fees) | 52 | +$368 (≈ $99/yr) | 0 losses; 95% upper loss rate 5.6% vs break-even 2.3% |
 
-Both gates also make money on SPY (R4-2.0 +$321) and SPXW (R4-1.0 +$741, 49 trades, no losses). That is consistent with a real but tiny VRP-timing effect. Even if it is real, it is ≈ 0.4–0.7% per year on $25k at 1 lot. That is about the size of the data bill plus one bad fill.
+**Both gates lost money in the 2021–22 development years** (XSP B2-EDGE −$105, R4-1.0 −$243). Their 2023–26 profit is therefore not stable across periods.
+
+Both gates also make money on SPY (R4-2.0 +$321) and SPXW (R4-1.0 +$741, 49 trades, no losses) in 2023–26. That is consistent with a real but tiny VRP-timing effect. Even if it is real, it is ≈ 0.4–0.7% per year on $25k at 1 lot. That is about the size of the data bill plus one bad fill.
 
 ## 4. Automation target (V2 §26)
 
