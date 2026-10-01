@@ -24,6 +24,8 @@ Times America/New_York. Each entry: what changed, why, and whether any out-of-sa
 | 17 | 17:45 | **Data-licensing incident.** Commits c16d362 and 27a2c0a pushed 284 processed quote files derived from Databento OPRA data, and b76635a pushed a small Cboe delayed-quote table, to a **public** repository. Fix going forward: the files are untracked and git-ignored (they stay on local disk). Rewriting history to purge them was blocked by the permission system and is left to the user. | no |
 | 18 | 19:20 | Container restart mid-download. Data, key and code survived; background processes were relaunched with per-day locks, patient 429 retries and split-on-504 retries. | no |
 | 19 | 19:35 | Code smoke test of `run_window` on a DEV window (train 2017–2018, predict 2019), 5 Optuna trials. **All three years are training-period data for every real window.** Outputs: SKIP-in-grade-1 holds (θ10 = −0.28 < 0 ≤ θ40); S1..S5 = 171/170/107/42/28; gate rate 0.4; early stopping at round 4. Written to scratch only; not a result and not used for any decision. | no |
+| 20 | 21:22 | Data issue: on 2018-12-04 the only listed next-session SPXW expiry was 2018-12-05, an unscheduled market closure (national day of mourning). There is no settlement session for that contract, so the panel is not built and the day is excluded. It is one training-period day. | no |
+| 21 | 21:26 | SPXW 2017–2021 complete. **WF1 started (P-LAG, then A-LAG): first time any walk-forward (2021) outcome is computed.** All rules are as pre-registered; nothing is changed after this point except via logged amendments. | **from here: 2021** |
 
 ## Spend log (Databento, USD)
 
