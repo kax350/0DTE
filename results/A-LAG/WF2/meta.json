@@ -1,0 +1,119 @@
+{
+ "window": "WF2",
+ "policy": "A-LAG",
+ "thresholds": [
+  -0.5696766057489429,
+  0.9646249834875583,
+  1.5325220269960447,
+  3.012988846385604
+ ],
+ "skip_in_grade1": true,
+ "selection": {
+  "S1": 183,
+  "S2": 183,
+  "S3": 88,
+  "S4": 45,
+  "S5": 30
+ },
+ "tuning": {
+  "best_params": {
+   "num_leaves": 89,
+   "learning_rate": 0.01324800965637217,
+   "min_data_in_leaf": 74,
+   "feature_fraction": 0.8524063764583578,
+   "bagging_fraction": 0.9255534031295974,
+   "bagging_freq": 10,
+   "lambda_l1": 0.05182957341431465,
+   "lambda_l2": 7.603917794383721
+  },
+  "best_ndcg1_search": 0.9038095238095238,
+  "best_iteration": 1
+ },
+ "gate": {
+  "tau": 0.0,
+  "rate": 1.0,
+  "table": [
+   {
+    "rate": 1.0,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.9,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.8,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.7,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.6,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.5,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.4,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   },
+   {
+    "rate": 0.3,
+    "tau": 0.0,
+    "sortino": -0.014280136244116972,
+    "realized_rate": 1.0
+   }
+  ]
+ },
+ "n_train_days": 975,
+ "slices": {
+  "ranker": [
+   "2018-01-02",
+   "2021-06-30",
+   851
+  ],
+  "gate": [
+   "2021-07-01",
+   "2021-12-31",
+   124
+  ],
+  "search_train": [
+   "2018-01-02",
+   "2020-12-31",
+   731
+  ],
+  "search_val": [
+   "2021-01-04",
+   "2021-06-30",
+   120
+  ],
+  "final_train": [
+   "2018-01-02",
+   "2021-03-31",
+   790
+  ],
+  "final_es": [
+   "2021-04-01",
+   "2021-06-30",
+   61
+  ]
+ }
+}
