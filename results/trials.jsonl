@@ -3223,3 +3223,15 @@
 {"t": "2026-10-01T07:05:23", "variant": "V2|dev|A-LAG|SPY|PRIMARY|R4-1.5", "period": "dev", "preregistered": true, "note": ""}
 {"t": "2026-10-01T07:05:23", "variant": "V2|dev|A-LAG|SPY|PRIMARY|R4-2.0", "period": "dev", "preregistered": true, "note": ""}
 {"t": "2026-10-01T07:05:23", "variant": "V2|dev|A-LAG|SPY|PRIMARY|R0-SNAP1000", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:25", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|B0", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:25", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R0", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:25", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|B2-EDGE", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:26", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|B2-TS", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:26", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R1", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:26", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R2-A", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:26", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R2-B", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:27", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R3", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:27", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R4-1.0", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:28", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R4-1.5", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:28", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R4-2.0", "period": "dev", "preregistered": true, "note": ""}
+{"t": "2026-10-01T07:05:28", "variant": "V2|dev|A-LAG|SPXW|PRIMARY|R0-SNAP1000", "period": "dev", "preregistered": true, "note": ""}
