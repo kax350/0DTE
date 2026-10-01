@@ -312,4 +312,18 @@ For SPY: the number of days the 15:59 spot fell between K_l and K_s (partial-ass
 **This study builds no broker connection and places no orders** (original constraint). Only the specification and a dry-run signal generator are delivered.
 
 ## Amendments
-(none)
+
+**A1 (2026-10-01 ~04:40 ET; made before any 2023+ strategy outcome was computed; ledger #26).**
+
+*Trigger.* A data audit of quote quality only (`scripts/quote_quality.py` → `docs/quote_quality_1000.csv`; widths and two-sided counts, no P&L) found that the **XSP NBBO at exactly 10:00:00 is frequently degraded**: $1–2-wide auto-quotes with size 1. Two examples are 2024-09-04 and 2025-03-03, both days with 10:00 ET macro releases. Quotes are normal again by 10:01–10:03. SPXW and SPY show no 10:00 effect. Under the frozen text, the XSP short strike and the CAP width would be chosen from a broken snapshot, which is a data-timing artefact and not a property of the product.
+
+*Change.*
+
+- (a) **Short strike** is resolved on the **SPXW 10:00 chain**: |Δ| closest to target, ties → lower strike, tolerance 0.025 applied to the SPXW delta. It is then mapped to the product:
+  - XSP: K_s = listed XSP strike nearest K_SPXW / 10 (tie → lower);
+  - SPY: K_s = listed SPY strike nearest K_SPXW · (S_SPY,10 / S_SPX,10) (tie → lower);
+  - SPXW benchmark: K_SPXW.
+- (b) **Everything quote-dependent** uses the product's quotes at the **order-submission minute**: 10:03 primary, 10:01/10:05 in K4/K5, t0 for DL. This covers the CAP long strike, the minimum credit, the max-loss check, and R4's Ĉ and Ê (c_mid, c_nat). All of it is known when the order is sent.
+- (c) The frozen original (product's own 10:00 snapshot for strike, delta and CAP width) is kept as a reported variant **R0-SNAP1000**. It has no role in selection.
+
+Nothing else changes.

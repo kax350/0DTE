@@ -32,8 +32,41 @@ def build(through: str) -> None:
                    cwd=ROOT, check=False)
 
 
+def done(windows: str, pol: str, tag: str = "") -> bool:
+    return all((ROOT / "results" / (pol + tag) / w / "meta.json").exists() for w in windows.split(","))
+
+
+V2_VARIANTS = [  # RETAIL_V2_PREREGISTRATION §10 (K15, K19-K22) and §11 ablation; A-LAG only
+    ("_corr080", ["--corr", "0.80"]), ("_corr090", ["--corr", "0.90"]), ("_roll3y", ["--rolling3y"]),
+    ("_seed1", ["--seed-offset", "1"]), ("_nomacro", ["--drop-groups", "macro"]),
+    ("_top5", ["--topk", "5", "--topk-src", "A-LAG"]), ("_top10", ["--topk", "10", "--topk-src", "A-LAG"]),
+    ("_top20", ["--topk", "20", "--topk-src", "A-LAG"]),
+]
+
+
+def run_v2_variants(end: str) -> None:
+    import concurrent.futures as cf
+    allw = "WF1,WF2,WF3,WF4,OOT,EXT_B"
+
+    def one(v):
+        tag, extra = v
+        if done(allw, "A-LAG", tag):
+            return
+        with open(ROOT / "logs" / f"wf_A-LAG{tag}.log", "w") as f:
+            subprocess.run([sys.executable, "-W", "ignore", "scripts/run_walkforward.py", "--policy", "A-LAG",
+                            "--windows", allw, "--end", end, "--tag", tag, *extra], cwd=ROOT, stdout=f,
+                           stderr=subprocess.STDOUT)
+        print(time.strftime("%H:%M"), "done v2 variant", tag, flush=True)
+
+    with cf.ThreadPoolExecutor(2) as ex:
+        list(ex.map(one, V2_VARIANTS))
+
+
 def run(windows: str, end: str) -> None:
     for pol in ("P-LAG", "A-LAG"):
+        if done(windows, pol):
+            print("skip (exists)", pol, windows, flush=True)
+            continue
         log = ROOT / "logs" / f"wf_{pol}_{windows.replace(',', '_')}.log"
         with open(log, "w") as f:
             subprocess.run([sys.executable, "-W", "ignore", "scripts/run_walkforward.py", "--policy", pol,
@@ -50,6 +83,8 @@ def main() -> None:
         build(through)
         run(windows, "2026-12-31" if "OOT" in windows else through)
     print("ALL WINDOWS DONE", flush=True)
+    run_v2_variants("2026-12-31")
+    print("V2 VARIANTS DONE", flush=True)
 
 
 if __name__ == "__main__":
